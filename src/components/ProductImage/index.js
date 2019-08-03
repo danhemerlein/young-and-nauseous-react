@@ -28,7 +28,7 @@ class ProductImage extends Component {
     let variantImage = this.state.selectedVariantImage || this.props.product.images[0]
     return (
       <div className="ProductImage">
-        {this.props.product.images.length ? <img src={variantImage.src} alt={`${this.props.product.title} product shot`} /> : null}
+        {this.props.product.images.length ? <img className="w100" src={variantImage.src} alt={`${this.props.product.title} product shot`} /> : null}
       </div>
     );
   }
