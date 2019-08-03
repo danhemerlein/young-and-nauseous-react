@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Products from './components/Products/';
-import Product from './components/Product/';
 import Cart from './components/Cart/';
+import HomePageHero from './components/HomePageHero/';
 
 import './App.scss'
 import './styles/app.scss';
-import { loadPartialConfig } from '@babel/core';
 
 class App extends Component {
   constructor() {
@@ -101,6 +100,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.shop)
     if (this.state.featuredProduct === null) {
       return "loading..."
     } else {
@@ -120,12 +120,12 @@ class App extends Component {
               
             </header>
 
-            <Product
+            <HomePageHero
               addVariantToCart={this.addVariantToCart}
               client={this.props.client}
               key={this.state.featuredProduct.id}
               product={this.state.featuredProduct}
-            />
+            ></HomePageHero>
 
             <Products
               products={this.state.products}
