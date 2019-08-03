@@ -1,0 +1,9 @@
+@import './reset.scss';
+@import './config.scss';
+@import './globals.scss';
+@import '~@sanctucompu/basement/src/index';
+@import 'settings';
+
+.App {
+  animation: fadein $transition-duration-long;
+}

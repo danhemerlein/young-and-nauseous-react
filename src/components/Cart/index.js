@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import LineItem from './LineItem';
+import LineItem from '../LineItem/';
+import './Cart.scss'
 
 class Cart extends Component {
   constructor(props) {
