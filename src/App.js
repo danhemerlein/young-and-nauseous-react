@@ -15,8 +15,8 @@ class App extends Component {
       checkout: { lineItems: [] },
       products: [],
       shop: {},
-      featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM3NTk0NTg0ODQyOTg=",
-      featuredProduct: null,
+      featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM5OTU3MzUxOTU3NDc=",
+      featuredProduct: undefined,
     };
 
     this.handleCartClose = this.handleCartClose.bind(this);
@@ -48,6 +48,7 @@ class App extends Component {
           featuredProduct: product,
         });
       })
+      console.log('this is the state', this.state);
     });
   }
 
@@ -100,10 +101,10 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.shop)
-    if (this.state.featuredProduct === null) {
+    if (this.state.featuredProduct === undefined) {
       return "loading..."
     } else {
+      console.log(this.state);
         return (
           <div className="App">
             <header className="App__header">

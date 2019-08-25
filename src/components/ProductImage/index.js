@@ -14,6 +14,12 @@ class ProductImage extends Component {
     this.findImage = this.findImage.bind(this);
   }
 
+  componentDidMount() {
+    console.log(this.props);
+    
+  }
+  
+
   findImage(images, variantId) {
     const primary = images[0];
 

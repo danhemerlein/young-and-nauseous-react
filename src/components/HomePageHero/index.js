@@ -34,7 +34,7 @@ class HomePageHero extends Component {
       <div className="HomePageHero w100 h100">
         <div className="bg-pink w100 flex w100 h100 justify-center items-center p2">
 
-          <div style={{ backgroundImage: "url('/assets/pink-cloudz.jpg')" }} className="bg-cover col-6 flex items-center justify-center h100 p2">
+          <div className="bg-cover col-6 flex items-center justify-center h100 p2">
             <div className="col-6">
               <ProductImage
                 product={this.props.product}
