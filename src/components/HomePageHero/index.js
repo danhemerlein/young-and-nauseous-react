@@ -33,18 +33,25 @@ class HomePageHero extends Component {
     return (
       <div className="HomePageHero w100 h100">
         <div className="bg-pink w100 flex w100 h100 justify-center items-center p2">
-
-          <div className="bg-cover col-6 flex items-center justify-center h100 p2">
-            <div className="col-6">
-              <ProductImage
-                product={this.props.product}
-              ></ProductImage>
-            </div>
+          <div className="col-6">
+            <ProductImage product={this.props.product} />
           </div>
 
+          <div className="col-6">
+            <h4
+              className="true-sketch-rg  aesthetic-font-modifier-outline-purple  aesthetic-effect-text-glitch"
+              data-glitch="Young & Nauseous logo tote"
+            >
+              Young & Nauseous logo tote
+            </h4>
+
+            <div className="aesthetic-windows-95-button">
+              <button>place in bag</button>
+            </div>
+          </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

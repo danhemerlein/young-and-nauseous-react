@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import Products from './components/Products/';
 import Cart from './components/Cart/';
 import HomePageHero from './components/HomePageHero/';
@@ -108,39 +110,68 @@ class App extends Component {
         return (
           <div className="App">
             <header className="App__header">
-              
-              <div className="bg-black p1 flex justify-between items-center">
-                <h1 className="App__headline true-sketch-rg bg-black color-white">{this.state.shop.name}</h1>
+              <div className="bg-white p1 flex justify-between items-center w100">
+                <div className="col-3">
+                  <img
+                    className="w100"
+                    src="https://cdn.shopify.com/s/files/1/0269/5793/8787/files/YN-02-2.png?6"
+                    alt="The Young & Nauseous logo"
+                  />
+                </div>
 
-                {!this.state.isCartOpen &&
+                {!this.state.isCartOpen && (
                   <div className="App__view-cart-wrapper">
-                    <button className="App__view-cart color-white bg-black" onClick={() => this.setState({ isCartOpen: true })}>Cart</button>
+                    <button
+                      className="App__view-cart color-white bg-black"
+                      onClick={() =>
+                        this.setState({ isCartOpen: true })
+                      }
+                    >
+                      Cart
+                    </button>
                   </div>
-                }
+                )}
               </div>
-              
             </header>
-
-            <HomePageHero
-              addVariantToCart={this.addVariantToCart}
-              client={this.props.client}
-              key={this.state.featuredProduct.id}
-              product={this.state.featuredProduct}
-            ></HomePageHero>
-
-            <Products
-              products={this.state.products}
-              client={this.props.client}
-              addVariantToCart={this.addVariantToCart}
-            />
             
-            <Cart
-              checkout={this.state.checkout}
-              isCartOpen={this.state.isCartOpen}
-              handleCartClose={this.handleCartClose}
-              updateQuantityInCart={this.updateQuantityInCart}
-              removeLineItemInCart={this.removeLineItemInCart}
-            />
+            <Router>
+              <Switch>
+                <Route
+                  path="/"
+                  render={() => (
+                    <HomePageHero
+                      addVariantToCart={this.addVariantToCart}
+                      client={this.props.client}
+                      key={this.state.featuredProduct.id}
+                      product={this.state.featuredProduct}
+                      addToCart={this.addVariantToCart}
+                    />
+                  )}
+                />
+
+                <Route
+                  path="/shop-all"
+                  render={() => (
+                    <div>
+                      <div> fuck</div>
+                      <Products
+                        products={this.state.products}
+                        client={this.props.client}
+                        addVariantToCart={this.addVariantToCart}
+                      />
+                    </div>
+                  )}
+                />
+
+                <Cart
+                  checkout={this.state.checkout}
+                  isCartOpen={this.state.isCartOpen}
+                  handleCartClose={this.handleCartClose}
+                  updateQuantityInCart={this.updateQuantityInCart}
+                  removeLineItemInCart={this.removeLineItemInCart}
+                />
+              </Switch>
+            </Router>
           </div>
         );
       }
