@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import ProductImage from '../ProductImage/';
+
+import PDP from '../PDP/';
+
 import './HomePageHero.scss'
 import debounce from "../../utils/debounce";
 
@@ -7,8 +9,8 @@ import debounce from "../../utils/debounce";
 class HomePageHero extends Component {
 
   setHeightHPH = () => {
-    const header = document.querySelector('.App__header');
-    const HomePageHero = document.querySelector('.HomePageHero');
+    const header = document.querySelector('.Header');
+    const HomePageHero = document.querySelector('.HomePageHero__featured-image');
 
     const HPHHeight = (window.innerHeight - header.offsetHeight);
 
@@ -29,27 +31,23 @@ class HomePageHero extends Component {
   }
 
   render() {
-
+    const heroImage = {
+      backgroundImage: "url(https://image.shutterstock.com/z/stock-photo-portrait-of-a-young-beautiful-fashionable-girl-wearing-sunglasses-model-in-a-stylish-black-hat-768372805.jpg)",
+      backgroundPosition: "center",
+      backgroundSize: 'cover',
+      overflow: 'hidden',
+    };
     return (
-      <div className="HomePageHero w100 h100">
-        <div className="bg-pink w100 flex w100 h100 justify-center items-center p2">
-          <div className="col-6">
-            <ProductImage product={this.props.product} />
-          </div>
+      <div className="HomePageHero w100">
 
-          <div className="col-6">
-            <h4
-              className="true-sketch-rg  aesthetic-font-modifier-outline-purple  aesthetic-effect-text-glitch"
-              data-glitch="Young & Nauseous logo tote"
-            >
-              Young & Nauseous logo tote
-            </h4>
+        <div style={heroImage} className="HomePageHero__featured-image w100"></div>
 
-            <div className="aesthetic-windows-95-button">
-              <button>place in bag</button>
-            </div>
-          </div>
+        <div className="bg-pink w100 flex w100 justify-center items-center p2">
+
+          <PDP product={this.props.product} />
+
         </div>
+        
       </div>
     );
   }

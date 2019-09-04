@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Products from './components/Products/';
 import Cart from './components/Cart/';
 import HomePageHero from './components/HomePageHero/';
+import Header from './components/Header/';
 
 import './App.scss'
 import './styles/app.scss';
@@ -50,7 +51,6 @@ class App extends Component {
           featuredProduct: product,
         });
       })
-      console.log('this is the state', this.state);
     });
   }
 
@@ -106,17 +106,16 @@ class App extends Component {
     if (this.state.featuredProduct === undefined) {
       return "loading..."
     } else {
-      console.log(this.state);
         return (
           <div className="App">
             <header className="App__header">
-              <div className="bg-white p1 flex justify-between items-center w100">
+              {/* <div className="bg-white p1 flex justify-between items-center w100">
                 <div className="col-3">
-                  <img
-                    className="w100"
-                    src="https://cdn.shopify.com/s/files/1/0269/5793/8787/files/YN-02-2.png?6"
-                    alt="The Young & Nauseous logo"
-                  />
+                    <img
+                      className="w100"
+                      src="https://cdn.shopify.com/s/files/1/0269/5793/8787/files/YN-02-2.png?6"
+                      alt="The Young & Nauseous logo"
+                    />
                 </div>
 
                 {!this.state.isCartOpen && (
@@ -131,29 +130,53 @@ class App extends Component {
                     </button>
                   </div>
                 )}
-              </div>
+              </div> */}
             </header>
             
             <Router>
               <Switch>
                 <Route
-                  path="/"
+                 exact path="/"
                   render={() => (
-                    <HomePageHero
-                      addVariantToCart={this.addVariantToCart}
-                      client={this.props.client}
-                      key={this.state.featuredProduct.id}
-                      product={this.state.featuredProduct}
-                      addToCart={this.addVariantToCart}
-                    />
+                    <div>
+                      <Header 
+
+                        
+                      />
+                      <HomePageHero
+                        addVariantToCart={this.addVariantToCart}
+                        client={this.props.client}
+                        key={this.state.featuredProduct.id}
+                        product={this.state.featuredProduct}
+                        addToCart={this.addVariantToCart}
+                      />
+                    </div>
                   )}
                 />
 
                 <Route
-                  path="/shop-all"
+                  exact path="/y&n-tote"
                   render={() => (
                     <div>
-                      <div> fuck</div>
+                      <Header
+
+
+                      />
+                      <HomePageHero
+                        addVariantToCart={this.addVariantToCart}
+                        client={this.props.client}
+                        key={this.state.featuredProduct.id}
+                        product={this.state.featuredProduct}
+                        addToCart={this.addVariantToCart}
+                      />
+                    </div>
+                  )}
+                />
+
+                <Route
+                  exact path="/shop-all"
+                  render={() => (
+                    <div>
                       <Products
                         products={this.state.products}
                         client={this.props.client}
@@ -163,13 +186,19 @@ class App extends Component {
                   )}
                 />
 
-                <Cart
-                  checkout={this.state.checkout}
-                  isCartOpen={this.state.isCartOpen}
-                  handleCartClose={this.handleCartClose}
-                  updateQuantityInCart={this.updateQuantityInCart}
-                  removeLineItemInCart={this.removeLineItemInCart}
+                <Route
+                  exact path="/cart"
+                  render={() => (
+                    <Cart
+                      checkout={this.state.checkout}
+                      isCartOpen={this.state.isCartOpen}
+                      handleCartClose={this.handleCartClose}
+                      updateQuantityInCart={this.updateQuantityInCart}
+                      removeLineItemInCart={this.removeLineItemInCart}
+                    />
+                  )}
                 />
+
               </Switch>
             </Router>
           </div>
