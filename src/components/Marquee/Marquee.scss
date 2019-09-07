@@ -1,0 +1,26 @@
+@import "../../styles/app.scss";
+
+.Marquee {
+    height: 16px;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+
+    &__inner {
+      display: block;
+      width: 200%;
+      position: absolute;
+      animation: marquee 20s linear infinite;
+
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+
+  &__span {
+    float: left;
+    width: 50%;
+  }
+
+}

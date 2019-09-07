@@ -5,6 +5,7 @@ import Products from './components/Products/';
 import Cart from './components/Cart/';
 import HomePageHero from './components/HomePageHero/';
 import Header from './components/Header/';
+import Footer from './components/Footer/';
 import PDP from './components/PDP/';
 
 import './App.scss'
@@ -144,17 +145,15 @@ class App extends Component {
                 )}
               </div> */}
             </header>
-            
+
             <Router>
               <Switch>
                 <Route
-                 exact path="/"
+                  exact
+                  path="/"
                   render={() => (
                     <div>
-                      <Header 
-
-                        
-                      />
+                      <Header />
                       <HomePageHero
                         addVariantToCart={this.addVariantToCart}
                         client={this.props.client}
@@ -163,26 +162,25 @@ class App extends Component {
                         collections={this.state.collections}
                         addToCart={this.addVariantToCart}
                       />
+                      <Footer />
                     </div>
                   )}
                 />
 
                 <Route
-                  exact path="/y&n-tote"
+                  exact
+                  path="/y&n-tote"
                   render={() => (
                     <div>
-                      <Header
-
-
-                      />
+                      <Header />
                       <PDP product={this.state.featuredProduct} />
-
                     </div>
                   )}
                 />
 
                 <Route
-                  exact path="/shop-all"
+                  exact
+                  path="/shop-all"
                   render={() => (
                     <div>
                       <Products
@@ -195,7 +193,8 @@ class App extends Component {
                 />
 
                 <Route
-                  exact path="/cart"
+                  exact
+                  path="/cart"
                   render={() => (
                     <Cart
                       checkout={this.state.checkout}
@@ -206,7 +205,6 @@ class App extends Component {
                     />
                   )}
                 />
-
               </Switch>
             </Router>
           </div>

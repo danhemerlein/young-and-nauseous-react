@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import Marquee from "../Marquee/";
+
 import './Header.scss'
 
 class Header extends Component {
@@ -9,7 +11,9 @@ class Header extends Component {
     return (
       <div className="Header">
 
-        <div className="bg-white  flex justify-between w100">
+        <Marquee />
+
+        <div className="aesthetic-arizona-pink-bg-color flex justify-between w100">
           <div className="col-3 p1">
             <Link to="/">
             <img
@@ -20,25 +24,25 @@ class Header extends Component {
             </Link>
           </div>
 
-          <div className="col-9 flex items-end justify-end">
+          <div className="col-9 flex items-end justify-end pr1">
 
             <div className="aesthetic-windows-95-tabbed-container">
 
               <div className="aesthetic-windows-95-tabbed-container-tabs">
 
-                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active">
+                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active mx1">
                   <button>
                     Cart
                   </button>
                 </div>
 
-                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active">
+                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active mx1">
                   <button>
                     About
                   </button>
                 </div>
 
-                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active">
+                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active ml1">
                   <button>
                     Meet The Models
                   </button>
