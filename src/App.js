@@ -5,6 +5,7 @@ import Products from './components/Products/';
 import Cart from './components/Cart/';
 import HomePageHero from './components/HomePageHero/';
 import Header from './components/Header/';
+import PDP from './components/PDP/';
 
 import './App.scss'
 import './styles/app.scss';
@@ -20,6 +21,7 @@ class App extends Component {
       shop: {},
       featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM5OTU3MzUxOTU3NDc=",
       featuredProduct: undefined,
+      collections: undefined,
     };
 
     this.handleCartClose = this.handleCartClose.bind(this);
@@ -51,6 +53,15 @@ class App extends Component {
           featuredProduct: product,
         });
       })
+    }).then(() => {
+      this.props.client.collection.fetchAllWithProducts().then((collections) => {
+
+        // Do something with the collections
+        this.setState({
+          collections: collections[0],
+        });
+      });
+
     });
   }
 
@@ -103,9 +114,10 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.featuredProduct === undefined) {
+    if (this.state.featuredProduct === undefined || this.state.collections === undefined) {
       return "loading..."
     } else {
+        // console.log(this.state);
         return (
           <div className="App">
             <header className="App__header">
@@ -148,6 +160,7 @@ class App extends Component {
                         client={this.props.client}
                         key={this.state.featuredProduct.id}
                         product={this.state.featuredProduct}
+                        collections={this.state.collections}
                         addToCart={this.addVariantToCart}
                       />
                     </div>
@@ -162,13 +175,8 @@ class App extends Component {
 
 
                       />
-                      <HomePageHero
-                        addVariantToCart={this.addVariantToCart}
-                        client={this.props.client}
-                        key={this.state.featuredProduct.id}
-                        product={this.state.featuredProduct}
-                        addToCart={this.addVariantToCart}
-                      />
+                      <PDP product={this.state.featuredProduct} />
+
                     </div>
                   )}
                 />

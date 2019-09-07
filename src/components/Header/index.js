@@ -9,8 +9,8 @@ class Header extends Component {
     return (
       <div className="Header">
 
-        <div className="bg-white p1 flex justify-between items-center w100">
-          <div className="col-3">
+        <div className="bg-white  flex justify-between w100">
+          <div className="col-3 p1">
             <Link to="/">
             <img
               className="w100"
@@ -20,13 +20,36 @@ class Header extends Component {
             </Link>
           </div>
 
-            <div className="">
-              <button
-                className="color-white bg-black"
-              >
-                Cart
-              </button>
+          <div className="col-9 flex items-end justify-end">
+
+            <div className="aesthetic-windows-95-tabbed-container">
+
+              <div className="aesthetic-windows-95-tabbed-container-tabs">
+
+                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active">
+                  <button>
+                    Cart
+                  </button>
+                </div>
+
+                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active">
+                  <button>
+                    About
+                  </button>
+                </div>
+
+                <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active">
+                  <button>
+                    Meet The Models
+                  </button>
+                </div>
+
+              </div>
+
             </div>
+
+          </div>
+
         </div>
 
       </div>
