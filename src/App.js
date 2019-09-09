@@ -6,6 +6,8 @@ import Cart from './components/Cart/';
 import HomePageHero from './components/HomePageHero/';
 import Header from './components/Header/';
 import Footer from './components/Footer/';
+import AboutPage from './components/AboutPage/';
+import CollectionPage from './components/CollectionPage/';
 import PDP from './components/PDP/';
 
 import './App.scss'
@@ -59,7 +61,7 @@ class App extends Component {
 
         // Do something with the collections
         this.setState({
-          collections: collections[0],
+          collections: collections,
         });
       });
 
@@ -118,7 +120,7 @@ class App extends Component {
     if (this.state.featuredProduct === undefined || this.state.collections === undefined) {
       return "loading..."
     } else {
-        // console.log(this.state);
+        console.log(this.state.collections);
         return (
           <div className="App">
             <header className="App__header">
@@ -162,6 +164,42 @@ class App extends Component {
                         collections={this.state.collections}
                         addToCart={this.addVariantToCart}
                       />
+                      <Footer />
+                    </div>
+                  )}
+                />
+
+                <Route
+                  exact
+                  path="/totes"
+                  render={() => (
+                    <div>
+                      <Header />
+                      <CollectionPage products={this.state.collections[0]} />
+                      <Footer />
+                    </div>
+                  )}
+                />
+
+                <Route
+                  exact
+                  path="/hats"
+                  render={() => (
+                    <div>
+                      <Header />
+                      <CollectionPage products={this.state.collections[1]} />
+                      <Footer />
+                    </div>
+                  )}
+                />
+
+                <Route
+                  exact
+                  path="/about"
+                  render={() => (
+                    <div>
+                      <Header />
+                      <AboutPage />
                       <Footer />
                     </div>
                   )}

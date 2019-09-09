@@ -12,12 +12,11 @@ class FeaturedCollection extends Component {
       backgroundRepeat: 'no-repeat',
       overflow: 'hidden',
     };
-    let imgSrc = this.props.image.src;
     return (
       <div className="FeaturedCollection col-8 aesthetic-purple-bg-color p4">
 
         <div style={bgDesign} className="FeaturedCollection__bg w100 relative">
-          <img className="w100" src={imgSrc} alt="" />
+          <img className="w100" src={this.props.image.src} alt="" />
 
           <h2 className="FeaturedCollection__collection-title aesthetic-arizona-lime-color aesthetic-font-modifier-gradient-arizona true-sketch-rg absolute ">
             {this.props.title}

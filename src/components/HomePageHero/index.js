@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 import FeaturedCollection from '../FeaturedCollection/';
 import HomePageContent from '../HomePageContent/';
@@ -74,22 +75,35 @@ class HomePageHero extends Component {
 
             <div className="aesthetic-windows-xp-modal-content">
               <div className="bg-blue p4">
-                <FeaturedCollection
-                  image={this.props.collections.image}
-                  title={this.props.collections.title}
-                  bg={
-                    "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/rockinwithlights_8.png?20"
-                  }
-                />
-
-                <div className="flex justify-end pt4">
+                <Link to="/totes">
                   <FeaturedCollection
-                    image={this.props.collections.image}
-                    title={this.props.collections.title}
+                    image={this.props.collections[0].image}
+                    title={this.props.collections[0].title}
                     bg={
-                      "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/56_rockingwithlights.png?21"
+                      "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/rockinwithlights_8.png?20"
                     }
-                    offset={true}
+                  />
+                </Link>
+
+                <Link to="/hats">
+                  <div className="flex justify-end pt4">
+                    <FeaturedCollection
+                      image={this.props.collections[1].image}
+                      title={this.props.collections[1].title}
+                      bg={
+                        "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/56_rockingwithlights.png?21"
+                      }
+                    />
+                  </div>
+                </Link>
+
+                <div className="pt4">
+                  <FeaturedCollection
+                    image={this.props.collections[2].image}
+                    title={this.props.collections[2].title}
+                    bg={
+                      "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/rockinwithlights_8.png?20"
+                    }
                   />
                 </div>
               </div>
