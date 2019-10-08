@@ -120,7 +120,6 @@ class App extends Component {
     if (this.state.featuredProduct === undefined || this.state.collections === undefined) {
       return "loading..."
     } else {
-        console.log(this.state.collections);
         return (
           <div className="App">
             <header className="App__header">

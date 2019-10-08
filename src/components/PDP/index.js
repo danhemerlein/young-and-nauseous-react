@@ -6,7 +6,6 @@ import './PDP.scss'
 class PDP extends Component {
 
   render() {
-    console.log(this.props.product);
     return (
       <div className="PDP flex">
   
