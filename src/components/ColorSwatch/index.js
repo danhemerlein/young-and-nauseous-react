@@ -36,7 +36,7 @@ class ColorSwatch extends Component {
     };
 
     return (
-      <div className="ColorSwatch pointer" onClick={this.props.clickHandler} style={bgColor}></div>
+      <div className="ColorSwatch pointer" onClick={() => {this.props.clickHandler(this.props.id)}} style={bgColor}></div>
     );
   }
 }

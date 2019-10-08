@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import ColorSwatch from '../ColorSwatch/';
 
+import cx from 'classnames';
 import "./CollectionProductCard.scss";
 
 class CollectionProductCard extends Component {
@@ -13,26 +14,40 @@ class CollectionProductCard extends Component {
     this.state = {
       variants: [],
       imageSrcs: [],
+      variantObjs: [],
       hasHover: false,
+      activeVariantID: '',
     }
   }
 
   componentDidMount() {
     let k = [];
     let j = [];
+    let x = [];
+
     for (let variant of this.props.product.variants) {
       k.push(variant);
+      let y = {
+        color: variant.title,
+        src: variant.image.src,
+        id: variant.id
+      }
+      x.push(y);
     }
 
     for(let imageGraphModel of this.props.product.images) {
       j.push(imageGraphModel.src)
     }
 
+    const onLoadVariant = this.props.product.variants[0].id;
+    
     this.setState({
       variants: k,
       imageSrcs: j,
+      variantObjs: x,
+      activeVariantID: onLoadVariant 
     })
-
+        
     if (this.props.product.images.length === (this.props.product.variants.length * 2)) {
       this.setState({
         hasHover: true,
@@ -41,18 +56,32 @@ class CollectionProductCard extends Component {
 
   }
 
-  colorSwatchClick() {
-    console.log('you are clicking on the color swatch');
+  colorSwatchClick = (str) => {
+
+    this.setState({
+      activeVariantID: str,
+    })
   }
 
   renderGalleryRow = (imageGroup, index) => {
     const image1SRC = imageGroup;
 
-    const image2SRC = imageGroup[index+1];
+    const image2SRC = imageGroup[1];    
 
-    if (index === 0 ) {
+    const variantColor = this.state.variantObjs[index].color.toLowerCase().replace(' ', '-');
+    const variantID = this.state.variantObjs[index].id;
+
       return (
-        <div className="CollectionProductCard__hover-image-container w100 h100">
+        
+        <div className={
+          cx('CollectionProductCard__hover-image-container w100 h100',
+            {
+              'none': variantID !== this.state.activeVariantID
+            }, 
+            { 
+              'block': variantID === this.state.activeVariantID 
+          })
+        } data-color={variantColor} key={variantID}>
 
           <div className="CollectionProductCard__block relative h100 w100">
 
@@ -72,29 +101,7 @@ class CollectionProductCard extends Component {
 
         </div>
       );
-    } else {
-      return (
-        <div className="CollectionProductCard__hover-image-container flex justify-center items-center w100 h100 none">
-          <div className="CollectionProductCard__block relative h100 w100">
-
-            <img
-              src={image1SRC}
-              alt=""
-              className="CollectionProductCard__overlay flex justify-center items-center absolute l0 t0 r0 b0 h100 w100"
-            />
-
-            <img
-              src={image2SRC}
-              alt=""
-              className="CollectionProductCard__top flex justify-center items-center h100 w100"
-            />
-
-          </div>
-        </div>
-      )
-    }
   };
-
   
   render() {
 
@@ -108,14 +115,38 @@ class CollectionProductCard extends Component {
       []
     );
 
-    console.log(imageMatrix);
-
     let imageMarkup;
 
     if (this.state.hasHover) {
       imageMarkup = imageMatrix.map((imageGroup, index) =>
         this.renderGalleryRow(imageGroup, index, imageMatrix)
       );
+    } else {
+      imageMarkup = this.state.variantObjs.map((variant, index) => {
+        return (
+          <div className={
+            cx('CollectionProductCard__hover-image-container w100 h100',
+              {
+                'none': variant.id !== this.state.activeVariantID
+              },
+              {
+                'block': variant.id === this.state.activeVariantID
+              })
+          } data-color={variant.color.toLowerCase().replace(' ', '-')} key={variant.id}>
+
+            <div className="CollectionProductCard__block relative h100 w100">
+
+              <img
+                src={variant.src}
+                alt=""
+                className="h100 w100"
+              />
+
+            </div>
+
+          </div>
+        )
+      })
     }
 
     return (
@@ -141,6 +172,7 @@ class CollectionProductCard extends Component {
                 <div className="mx_5" key={key}>
                   <ColorSwatch
                     clickHandler={this.colorSwatchClick}
+                    id={variant.id}
                     color={variant.title}
                   ></ColorSwatch>
                 </div>
