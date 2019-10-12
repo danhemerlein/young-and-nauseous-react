@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import cx from 'classnames';
 
 import Marquee from "../Marquee/";
 import MiniCart from "../MiniCart/";
@@ -52,11 +53,16 @@ class Header extends Component {
             </div>
           </div>
         </div>
-        <div className="Header__mini-cart absolute r0">
+        <div className={
+          cx('Header__mini-cart absolute r0',
+            {
+              'Header__mini-cart--active': this.props.isMiniCartOpen
+            })
+        } >
           <MiniCart
             checkout={this.props.checkout}
             isCartOpen={this.props.isCartOpen}
-            handleCartClose={this.handleCartClose}
+            handleCartClose={this.props.handleCartClose}
             updateQuantityInCart={this.props.updateQuantityInCart}
             removeLineItemInCart={this.props.removeLineItemInCart}
           ></MiniCart>
@@ -67,3 +73,4 @@ class Header extends Component {
 }
 
 export default Header;
+

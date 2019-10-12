@@ -82,11 +82,19 @@ class App extends Component {
     const lineItemsToAdd = [{ variantId, quantity: parseInt(quantity, 10) }]
     const checkoutId = this.state.checkout.id
 
+    setTimeout(() => {
+      this.setState({
+        isCartOpen: false,
+      })
+
+    }, 5000);
+
     return this.props.client.checkout.addLineItems(checkoutId, lineItemsToAdd).then(res => {
       this.setState({
         checkout: res,
       });
     });
+
   }
 
   updateQuantityInCart(lineItemId, quantity) {
@@ -131,6 +139,7 @@ class App extends Component {
                 handleCartClose={this.handleCartClose}
                 updateQuantityInCart={this.updateQuantityInCart}
                 removeLineItemInCart={this.removeLineItemInCart}
+                isMiniCartOpen={this.state.isCartOpen}
               />
               <PDP 
                 product={this.state.products[key]}
