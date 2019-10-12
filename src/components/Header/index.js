@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 import Marquee from "../Marquee/";
+import MiniCart from "../MiniCart/";
 
 import './Header.scss'
 
@@ -9,7 +10,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="Header">
+      <div className="Header relative">
         <Marquee />
 
         <div className="aesthetic-arizona-pink-bg-color flex justify-between w100">
@@ -27,7 +28,9 @@ class Header extends Component {
             <div className="aesthetic-windows-95-tabbed-container">
               <div className="aesthetic-windows-95-tabbed-container-tabs">
                 <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active mx1">
-                  <button>Cart</button>
+                  <Link to="/cart">
+                    <button>Cart</button>
+                  </Link>
                 </div>
 
                 <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active mx1">
@@ -48,6 +51,15 @@ class Header extends Component {
               </div>
             </div>
           </div>
+        </div>
+        <div className="Header__mini-cart absolute r0">
+          <MiniCart
+            checkout={this.props.checkout}
+            isCartOpen={this.props.isCartOpen}
+            handleCartClose={this.handleCartClose}
+            updateQuantityInCart={this.props.updateQuantityInCart}
+            removeLineItemInCart={this.props.removeLineItemInCart}
+          ></MiniCart>
         </div>
       </div>
     );

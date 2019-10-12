@@ -24,7 +24,7 @@ class App extends Component {
       shop: {},
       featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM5OTU3MzUxOTU3NDc=",
       featuredProduct: undefined,
-      collections: undefined,
+      collections: [],
     };
 
     this.handleCartClose = this.handleCartClose.bind(this);
@@ -117,35 +117,61 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.featuredProduct === undefined || this.state.collections === undefined) {
+    const productRoutes = this.state.products.map((product, key) => {
+      const handle = `/${product.handle}`
+      return (
+        <Route
+          exact
+          path={handle}
+          render={() => (
+            <div>
+              <Header
+                checkout={this.state.checkout}
+                isCartOpen={this.state.isCartOpen}
+                handleCartClose={this.handleCartClose}
+                updateQuantityInCart={this.updateQuantityInCart}
+                removeLineItemInCart={this.removeLineItemInCart}
+              />
+              <PDP 
+                product={this.state.products[key]}
+                addToCart={this.addVariantToCart}
+              />
+              <Footer />
+            </div>
+          )}
+          />
+        )
+      });
+
+    const collectionRoutes = this.state.collections.map((collection, key) => {
+      const handle = `/${collection.handle}`
+      return (
+        <Route
+          exact
+          path={handle}
+          render={() => (
+            <div>
+              <Header
+                checkout={this.state.checkout}
+                isCartOpen={this.state.isCartOpen}
+                handleCartClose={this.handleCartClose}
+                updateQuantityInCart={this.updateQuantityInCart}
+                removeLineItemInCart={this.removeLineItemInCart}
+              />
+              <CollectionPage products={this.state.collections[key]} />
+              <Footer />
+            </div>
+          )}
+        />
+      )
+    })
+
+    if (this.state.featuredProduct === undefined || !this.state.collections.length || !this.state.products.length) {
       return "loading..."
     } else {
         return (
           <div className="App">
-            <header className="App__header">
-              {/* <div className="bg-white p1 flex justify-between items-center w100">
-                <div className="col-3">
-                    <img
-                      className="w100"
-                      src="https://cdn.shopify.com/s/files/1/0269/5793/8787/files/YN-02-2.png?6"
-                      alt="The Young & Nauseous logo"
-                    />
-                </div>
-
-                {!this.state.isCartOpen && (
-                  <div className="App__view-cart-wrapper">
-                    <button
-                      className="App__view-cart color-white bg-black"
-                      onClick={() =>
-                        this.setState({ isCartOpen: true })
-                      }
-                    >
-                      Cart
-                    </button>
-                  </div>
-                )}
-              </div> */}
-            </header>
+            <header className="App__header"></header>
 
             <Router>
               <Switch>
@@ -154,7 +180,13 @@ class App extends Component {
                   path="/"
                   render={() => (
                     <div>
-                      <Header />
+                      <Header 
+                        checkout={this.state.checkout}
+                        isCartOpen={this.state.isCartOpen}
+                        handleCartClose={this.handleCartClose}
+                        updateQuantityInCart={this.updateQuantityInCart}
+                        removeLineItemInCart={this.removeLineItemInCart}
+                      />
                       <HomePageHero
                         addVariantToCart={this.addVariantToCart}
                         client={this.props.client}
@@ -168,36 +200,22 @@ class App extends Component {
                   )}
                 />
 
-                <Route
-                  exact
-                  path="/totes"
-                  render={() => (
-                    <div>
-                      <Header />
-                      <CollectionPage products={this.state.collections[0]} />
-                      <Footer />
-                    </div>
-                  )}
-                />
+                {collectionRoutes}
 
-                <Route
-                  exact
-                  path="/hats"
-                  render={() => (
-                    <div>
-                      <Header />
-                      <CollectionPage products={this.state.collections[1]} />
-                      <Footer />
-                    </div>
-                  )}
-                />
+                {productRoutes}
 
                 <Route
                   exact
                   path="/about"
                   render={() => (
                     <div>
-                      <Header />
+                      <Header
+                        checkout={this.state.checkout}
+                        isCartOpen={this.state.isCartOpen}
+                        handleCartClose={this.handleCartClose}
+                        updateQuantityInCart={this.updateQuantityInCart}
+                        removeLineItemInCart={this.removeLineItemInCart}
+                      />
                       <AboutPage />
                       <Footer />
                     </div>
@@ -209,7 +227,13 @@ class App extends Component {
                   path="/y&n-tote"
                   render={() => (
                     <div>
-                      <Header />
+                      <Header
+                        checkout={this.state.checkout}
+                        isCartOpen={this.state.isCartOpen}
+                        handleCartClose={this.handleCartClose}
+                        updateQuantityInCart={this.updateQuantityInCart}
+                        removeLineItemInCart={this.removeLineItemInCart}
+                      />
                       <PDP product={this.state.featuredProduct} />
                     </div>
                   )}
