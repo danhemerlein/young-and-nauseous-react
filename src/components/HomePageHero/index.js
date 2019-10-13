@@ -97,15 +97,18 @@ class HomePageHero extends Component {
                   </div>
                 </Link>
 
-                <div className="pt4">
-                  <FeaturedCollection
-                    image={this.props.collections[2].image}
-                    title={this.props.collections[2].title}
-                    bg={
-                      "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/rockinwithlights_8.png?20"
-                    }
-                  />
-                </div>
+                <Link to="/accessories">
+                  <div className="pt4">
+                    <FeaturedCollection
+                      image={this.props.collections[2].image}
+                      title={this.props.collections[2].title}
+                      bg={
+                        "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/rockinwithlights_8.png?20"
+                      }
+                    />
+                  </div>
+                </Link>
+
               </div>
             </div>
           </div>

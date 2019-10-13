@@ -158,6 +158,7 @@ class App extends Component {
 
     const collectionRoutes = this.state.collections.map((collection, key) => {
       const handle = `/${collection.handle}`
+      console.log('this is the collection handle', handle)
       return (
         <Route
           exact
@@ -171,7 +172,10 @@ class App extends Component {
                 updateQuantityInCart={this.updateQuantityInCart}
                 removeLineItemInCart={this.removeLineItemInCart}
               />
-              <CollectionPage products={this.state.collections[key]} />
+              <CollectionPage 
+                products={this.state.collections[key]} 
+                collectionHandle={collection.handle}
+              />
               <Footer />
             </div>
           )}

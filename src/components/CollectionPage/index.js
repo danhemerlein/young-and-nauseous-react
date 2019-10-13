@@ -12,6 +12,7 @@ class CollectionPage extends Component {
               <CollectionProductCard 
                 key={key} 
                 product={product}
+                collectionHandle={this.props.collectionHandle}
               />
           );
         })}

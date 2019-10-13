@@ -106,6 +106,8 @@ class CollectionProductCard extends Component {
   
   render() {
 
+    const collectionsWithCollorSwatches = ['hats'];
+
     const images = this.state.imageSrcs;
 
     const imageMatrix = images.reduce(
@@ -150,6 +152,31 @@ class CollectionProductCard extends Component {
       })
     }
 
+    let colorSwatchMarkup;
+
+    if (this.props.product.variants.length > 1 && collectionsWithCollorSwatches.includes(this.props.collectionHandle)) {
+      colorSwatchMarkup = this.state.variants.map((variant, key) => {
+          let active = false
+          if (variant.id === this.state.activeVariantID) {
+            active = true;
+          }
+          return (
+            <div className="mx_5" key={key}>
+              <ColorSwatch
+                clickHandler={this.colorSwatchClick}
+                id={variant.id}
+                color={variant.title}
+                active={active}
+              ></ColorSwatch>
+            </div>
+          )
+        })
+      } else {
+        colorSwatchMarkup = null;
+      }
+
+
+
     return (
       <div className="CollectionProductCard col-12 md:col-4 aesthetic-windows-95-green-bg-color mx2 flex flex-col">
         <Link to={`/${this.props.product.handle}`} className="h100 w100 block">
@@ -168,22 +195,7 @@ class CollectionProductCard extends Component {
         </Link>
 
         <div className="flex flex items-center justify-center my1">
-          {this.state.variants.map((variant, key) => {
-            let active = false
-            if (variant.id === this.state.activeVariantID) {
-              active = true;
-            }
-            return (
-                <div className="mx_5" key={key}>
-                  <ColorSwatch
-                    clickHandler={this.colorSwatchClick}
-                    id={variant.id}
-                    color={variant.title}
-                    active={active}
-                  ></ColorSwatch>
-                </div>
-              )
-          })}
+          {colorSwatchMarkup}
         </div>
 
       </div>
