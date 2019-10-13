@@ -89,6 +89,7 @@ class App extends Component {
 
     }, 5000);
 
+
     return this.props.client.checkout.addLineItems(checkoutId, lineItemsToAdd).then(res => {
       this.setState({
         checkout: res,
@@ -100,6 +101,7 @@ class App extends Component {
   updateQuantityInCart(lineItemId, quantity) {
     const checkoutId = this.state.checkout.id
     const lineItemsToUpdate = [{ id: lineItemId, quantity: parseInt(quantity, 10) }]
+
 
     return this.props.client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then(res => {
       this.setState({
@@ -125,8 +127,9 @@ class App extends Component {
   }
 
   render() {
+
     const productRoutes = this.state.products.map((product, key) => {
-      const handle = `/${product.handle}`
+    const handle = `/${product.handle}`
       return (
         <Route
           exact
@@ -140,6 +143,7 @@ class App extends Component {
                 updateQuantityInCart={this.updateQuantityInCart}
                 removeLineItemInCart={this.removeLineItemInCart}
                 isMiniCartOpen={this.state.isCartOpen}
+                cartQuantity={this.state.checkout}
               />
               <PDP 
                 product={this.state.products[key]}

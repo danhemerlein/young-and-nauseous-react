@@ -61,6 +61,7 @@ class CollectionProductCard extends Component {
     this.setState({
       activeVariantID: str,
     })
+
   }
 
   renderGalleryRow = (imageGroup, index) => {
@@ -168,12 +169,17 @@ class CollectionProductCard extends Component {
 
         <div className="flex flex items-center justify-center my1">
           {this.state.variants.map((variant, key) => {
+            let active = false
+            if (variant.id === this.state.activeVariantID) {
+              active = true;
+            }
             return (
                 <div className="mx_5" key={key}>
                   <ColorSwatch
                     clickHandler={this.colorSwatchClick}
                     id={variant.id}
                     color={variant.title}
+                    active={active}
                   ></ColorSwatch>
                 </div>
               )

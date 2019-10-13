@@ -54,7 +54,7 @@ class Header extends Component {
           </div>
         </div>
         <div className={
-          cx('Header__mini-cart absolute r0',
+          cx('Header__mini-cart r0',
             {
               'Header__mini-cart--active': this.props.isMiniCartOpen
             })

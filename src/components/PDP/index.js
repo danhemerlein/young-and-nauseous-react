@@ -149,7 +149,7 @@ class PDP extends Component {
     }
 
     return (
-      <div className="PDP flex overflow-hidden">
+      <div className="PDP flex overflow-hidden ">
   
         <div className="col-6">
 
@@ -157,38 +157,49 @@ class PDP extends Component {
 
         </div>
 
-        <div className="col-6 flex items-center justify-center flex-col">
-          <h2
-            className="PDP__product-title  true-sketch-rg  aesthetic-font-modifier-outline-purple  aesthetic-effect-text-glitch"
-            data-glitch={this.props.product.title}
-          >
-            {this.props.product.title}
-          </h2>
+        <div className="col-6 flex items-center justify-center flex-col aesthetic-25-transparent-bg-color">
 
-          <h4
-            className="PDP__product-price  true-sketch-rg  aesthetic-font-modifier-outline-purple my1"
-          > 
-            {/* the price is stored in the variant */}
-            ${this.props.product.variants[0].price}
-          </h4>
+          <div className="aesthetic-75-transparent-bg-color p2 flex items-center justify-center flex-col">
 
-          <div className="flex flex items-center justify-center my1">
-            {this.state.variants.map((variant, key) => {
-              return (
-                <div className="mx_5" key={key}>
-                  <ColorSwatch
-                    clickHandler={this.colorSwatchClick}
-                    id={variant.id}
-                    color={variant.title}
-                  ></ColorSwatch>
-                </div>
-              )
-            })}
+            <h2
+              className="PDP__product-title  true-sketch-rg  aesthetic-font-modifier-outline-purple  aesthetic-effect-text-glitch"
+              data-glitch={this.props.product.title}
+            >
+              {this.props.product.title}
+            </h2>
+
+            <h4
+              className="PDP__product-price  true-sketch-rg  aesthetic-font-modifier-outline-purple my1"
+            > 
+              {/* the price is stored in the variant */}
+              ${this.props.product.variants[0].price}
+            </h4>
+
+            <div className="flex flex items-center justify-center my1">
+              {this.state.variants.map((variant, key) => {
+                let active = false
+                if (variant.id === this.state.activeVariantID) {
+                  active = true;
+                }
+                return (
+                  <div className="mx_5" key={key}>
+                    <ColorSwatch
+                      clickHandler={this.colorSwatchClick}
+                      id={variant.id}
+                      color={variant.title}
+                      active={active}
+                    ></ColorSwatch>
+                  </div>
+                )
+              })}
+            </div>
+
+            <div className="aesthetic-windows-95-button col-3">
+              <button onClick={() => { this.props.addToCart(this.state.activeVariantID, 1) }}> place in bag</button>
+            </div>
+
           </div>
 
-          <div className="aesthetic-windows-95-button col-3">
-            <button onClick={() => { this.props.addToCart(this.state.activeVariantID, 1) }}> place in bag</button>
-          </div>
 
         </div>
 

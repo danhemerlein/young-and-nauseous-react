@@ -27,22 +27,26 @@ class MiniCart extends Component {
     });
 
     return (
-      <div className={`MiniCart flex flex-col items-center justify-center p_5 bg-black ${this.props.isCartOpen ? 'MiniCart--open' : ''}`}>
-        <header className="MiniCart__header flex justify-between w100 color-white">
+      <div className={`MiniCart flex flex-col items-center justify-center p1 aesthetic-pepsi-blue-bg-color ${this.props.isCartOpen ? 'MiniCart--open' : ''}`}>
+        <header className="MiniCart__header flex justify-between w100 aesthetic-pepsi-white-color bold">
           
           B A G
 
-          <button
-            onClick={this.props.handleCartClose}
-            className="MiniCart__close">
-            ×
-          </button>
+          <div className="aesthetic-windows-xp-button">
+
+            <button
+              onClick={this.props.handleCartClose}
+              className="MiniCart__close">
+              ×
+            </button>
+
+          </div>
 
         </header>
-        <ul className="MiniCart__line-items color-white w100 my1">
+        <ul className="MiniCart__line-items aesthetic-pepsi-white-color w100 my1">
           {line_items}
         </ul>
-        <footer className="MiniCart__footer color-white w100">
+        <footer className="MiniCart__footer aesthetic-pepsi-white-color w100">
 
           {/* <div className="MiniCart-info">
             <div className="MiniCart-info__total MiniCart-info__small">Subtotal</div>
@@ -58,13 +62,13 @@ class MiniCart extends Component {
           </div> */}
 
           <div className="MiniCart-info flex justify-between w100">
-            <div className="MiniCart-info__total MiniCart-info__small">T O T A L</div>
+            <div className="MiniCart-info__total MiniCart-info__small bolo">T O T A L</div>
             <div className="MiniCart-info__pricing">
               <span className="pricing">$ {this.props.checkout.totalPrice}</span>
             </div>
           </div>
 
-          <div className="flex items-center justify-center mt1 mb_5">
+          <div className=" aesthetic-windows-xp-button flex items-center justify-center mt1 mb_5 col-8">
 
             <button className="MiniCart__checkout button" onClick={this.openCheckout}>Proceed To Bag</button>
 

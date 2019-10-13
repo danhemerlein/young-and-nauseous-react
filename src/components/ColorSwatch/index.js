@@ -30,10 +30,19 @@ class ColorSwatch extends Component {
   
   render() {
     const color = this.state.color;
+    let bgColor;
 
-    const bgColor= {
-      backgroundColor: color,
-    };
+    if (this.props.active) {
+      bgColor = {
+        backgroundColor: color,
+        boxShadow: `0 0 0 3px white, 0 0 0 5px ${color}`
+      };
+    } else {
+      bgColor = {
+        backgroundColor: color,
+      };
+    }
+
 
     return (
       <div className="ColorSwatch pointer" onClick={() => {this.props.clickHandler(this.props.id)}} style={bgColor}></div>

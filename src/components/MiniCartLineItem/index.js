@@ -20,7 +20,6 @@ class MiniCartLineItem extends Component {
   }
 
   render() {
-    console.log(this.props.line_item);
     const lineItemId = this.props.line_item.id;
     const variantTitle = this.props.line_item.variant.title;
 
