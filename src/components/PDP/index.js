@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import ColorSwatch from '../ColorSwatch/';
+import SizeSelector from '../SizeSelector/';
 
 import cx from 'classnames';
 import './PDP.scss';
@@ -27,7 +28,7 @@ class PDP extends Component {
     for (let variant of this.props.product.variants) {
       k.push(variant);
       let y = {
-        color: variant.title,
+        title: variant.title,
         src: variant.image.src,
         id: variant.id
       }
@@ -60,6 +61,15 @@ class PDP extends Component {
     this.setState({
       activeVariantID: str,
     })
+
+  }
+
+  sizeSelectorClick = (str) => {
+
+    this.setState({
+      activeVariantID: str,
+    })
+
   }
 
   renderGalleryRow = (imageGroup, index) => {
@@ -67,7 +77,8 @@ class PDP extends Component {
 
     const image2SRC = imageGroup[1];
 
-    const variantColor = this.state.variantObjs[index].color.toLowerCase().replace(' ', '-');
+    const variantTitle = this.state.variantObjs[index].title.toLowerCase().replace(' ', '-');
+
     const variantID = this.state.variantObjs[index].id;
 
     return (
@@ -80,7 +91,7 @@ class PDP extends Component {
           {
             'block': variantID === this.state.activeVariantID
           })
-      } data-color={variantColor} key={variantID}>
+      } data-color={variantTitle} key={variantID}>
 
         <div className="PDP__block relative h100 w100">
 
@@ -131,7 +142,7 @@ class PDP extends Component {
               {
                 'block': variant.id === this.state.activeVariantID
               })
-          } data-color={variant.color.toLowerCase().replace(' ', '-')} key={variant.id}>
+          } data-color={variant.title.toLowerCase().replace(' ', '-')} key={variant.id}>
 
             <div className="PDP__block relative h100 w100">
 
@@ -146,6 +157,50 @@ class PDP extends Component {
           </div>
         )
       })
+    }
+    
+    let colorSwatchMarkUp;
+
+    if (this.props.product.options[0].name === "Color") {
+
+      colorSwatchMarkUp =
+
+        <div className="flex flex items-center justify-center my1">
+          {this.state.variants.map((variant, key) => {
+            let active = false
+            if (variant.id === this.state.activeVariantID) {
+              active = true;
+            }
+
+            return (
+              <div className="mx_5" key={key}>
+                <ColorSwatch
+                  clickHandler={this.colorSwatchClick}
+                  id={variant.id}
+                  color={variant.title}
+                  active={active}
+                ></ColorSwatch>
+              </div>
+            )
+            
+          })}
+        </div>
+    } else {
+      colorSwatchMarkUp = null;
+    }
+
+    let sizeSelectorMarkUp; 
+
+    if (this.props.product.options[0].name === "Size") {
+      sizeSelectorMarkUp = 
+        <div className="my1">
+          <SizeSelector
+            clickHandler={this.sizeSelectorClick}
+            variants={this.state.variantObjs}
+          ></SizeSelector>
+        </div>
+    } else {
+      sizeSelectorMarkUp = null;
     }
 
     return (
@@ -175,31 +230,15 @@ class PDP extends Component {
               ${this.props.product.variants[0].price}
             </h4>
 
-            <div className="flex flex items-center justify-center my1">
-              {this.state.variants.map((variant, key) => {
-                let active = false
-                if (variant.id === this.state.activeVariantID) {
-                  active = true;
-                }
-                return (
-                  <div className="mx_5" key={key}>
-                    <ColorSwatch
-                      clickHandler={this.colorSwatchClick}
-                      id={variant.id}
-                      color={variant.title}
-                      active={active}
-                    ></ColorSwatch>
-                  </div>
-                )
-              })}
-            </div>
+            {colorSwatchMarkUp}
+
+            {sizeSelectorMarkUp}
 
             <div className="aesthetic-windows-95-button col-3">
               <button onClick={() => { this.props.addToCart(this.state.activeVariantID, 1) }}> place in bag</button>
             </div>
 
           </div>
-
 
         </div>
 

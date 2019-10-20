@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import ColorSwatch from '../ColorSwatch/';
+import SizeSelector from '../SizeSelector/';
 
 import cx from 'classnames';
 import "./CollectionProductCard.scss";
@@ -28,7 +29,7 @@ class CollectionProductCard extends Component {
     for (let variant of this.props.product.variants) {
       k.push(variant);
       let y = {
-        color: variant.title,
+        title: variant.title,
         src: variant.image.src,
         id: variant.id
       }
@@ -69,7 +70,7 @@ class CollectionProductCard extends Component {
 
     const image2SRC = imageGroup[1];    
 
-    const variantColor = this.state.variantObjs[index].color.toLowerCase().replace(' ', '-');
+    const variantColor = this.state.variantObjs[index].title.toLowerCase().replace(' ', '-');
     const variantID = this.state.variantObjs[index].id;
 
       return (
@@ -106,7 +107,8 @@ class CollectionProductCard extends Component {
   
   render() {
 
-    const collectionsWithCollorSwatches = ['hats'];
+    // const collectionsWithColorSwatches = ['hats'];
+    // const collectionsWithSizeSelectors = ['accessories'];
 
     const images = this.state.imageSrcs;
 
@@ -135,7 +137,7 @@ class CollectionProductCard extends Component {
               {
                 'block': variant.id === this.state.activeVariantID
               })
-          } data-color={variant.color.toLowerCase().replace(' ', '-')} key={variant.id}>
+          } data-color={variant.title.toLowerCase().replace(' ', '-')} key={variant.id}>
 
             <div className="CollectionProductCard__block relative h100 w100">
 
@@ -154,7 +156,7 @@ class CollectionProductCard extends Component {
 
     let colorSwatchMarkup;
 
-    if (this.props.product.variants.length > 1 && collectionsWithCollorSwatches.includes(this.props.collectionHandle)) {
+    if (this.props.product.variants.length > 1 && this.props.product.options[0].name === 'Color') {
       colorSwatchMarkup = this.state.variants.map((variant, key) => {
           let active = false
           if (variant.id === this.state.activeVariantID) {
@@ -171,11 +173,23 @@ class CollectionProductCard extends Component {
             </div>
           )
         })
-      } else {
-        colorSwatchMarkup = null;
-      }
+    } else {
+      colorSwatchMarkup = null;
+    }
 
+    // this is the markup for the size selector for accessories
+    let sizeSelectorMarkup;
 
+    if (this.props.product.variants.length > 1 && this.props.product.options[0].name === 'Size') {
+      sizeSelectorMarkup = 
+        <div> 
+          <SizeSelector
+            variants={this.state.variantObjs}
+          ></SizeSelector> 
+        </div>
+    } else {
+      sizeSelectorMarkup = null;
+    }
 
     return (
       <div className="CollectionProductCard col-12 md:col-4 aesthetic-windows-95-green-bg-color mx2 flex flex-col">
@@ -197,6 +211,12 @@ class CollectionProductCard extends Component {
         <div className="flex flex items-center justify-center my1">
           {colorSwatchMarkup}
         </div>
+
+        <div className="flex flex items-center justify-center my1">
+          <ul>
+            {sizeSelectorMarkup}
+          </ul>
+        </div> 
 
       </div>
     );
