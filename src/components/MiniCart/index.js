@@ -62,7 +62,7 @@ class MiniCart extends Component {
           </div> */}
 
           <div className="MiniCart-info flex justify-between w100">
-            <div className="MiniCart-info__total MiniCart-info__small bolo">T O T A L</div>
+            <div className="MiniCart-info__total MiniCart-info__small bold">T O T A L</div>
             <div className="MiniCart-info__pricing">
               <span className="pricing">$ {this.props.checkout.totalPrice}</span>
             </div>

@@ -2,6 +2,28 @@
 
 .CollectionProductCard {
 
+  a {
+    &:active {
+      color: #FFFFFF;
+    }
+
+    &:visited {
+      color: #FFFFFF;
+    }
+
+    &:hover {
+      color: #FFFFFF;
+    }
+  }
+
+  &__product-title {
+    font-size: 1.5rem;
+  }
+  
+  &__product-price {
+    font-size: 1.5rem;
+  }
+
   &__overlay {
     &:hover {
       opacity: 0;

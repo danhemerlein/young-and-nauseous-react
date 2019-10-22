@@ -199,10 +199,10 @@ class CollectionProductCard extends Component {
 
             {imageMarkup}
 
-            <p className="my1">{this.props.product.title}</p>
+            <p className="CollectionProductCard__product-title my1 playfair text-center aesthetic-pepsi-white-color">{this.props.product.title}</p>
 
             {/* the price is stored in the variant */}
-            <p className="my1">${this.props.product.variants[0].price}</p>
+            <p className="CollectionProductCard__product-price mb1 playfair text-center aesthetic-pepsi-white-color">${this.props.product.variants[0].price}</p>
 
           </div>
 

@@ -234,7 +234,7 @@ class PDP extends Component {
 
             {sizeSelectorMarkUp}
 
-            <div className="aesthetic-windows-95-button col-3">
+            <div className="aesthetic-windows-95-button col-3 my1">
               <button onClick={() => { this.props.addToCart(this.state.activeVariantID, 1) }}> place in bag</button>
             </div>
 

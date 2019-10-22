@@ -25,6 +25,7 @@ class App extends Component {
       featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM5OTU3MzUxOTU3NDc=",
       featuredProduct: undefined,
       collections: [],
+      points: 0,
     };
 
     this.handleCartClose = this.handleCartClose.bind(this);
@@ -184,7 +185,19 @@ class App extends Component {
     })
 
     if (this.state.featuredProduct === undefined || !this.state.collections.length || !this.state.products.length) {
-      return "loading..."
+      
+      const loadingStyle = {
+        height: '100vh',
+      };
+
+      return (
+
+        <div class="play-fair color-pink bg-blue flex justify-center items-center" style={loadingStyle}>
+          loading...
+        </div>
+
+      )
+      
     } else {
         return (
           <div className="App">
