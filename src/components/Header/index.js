@@ -4,12 +4,14 @@ import cx from 'classnames';
 
 import Marquee from "../Marquee/";
 import MiniCart from "../MiniCart/";
+import ScorePreview from "../ScorePreview/";
 
 import './Header.scss'
 
 class Header extends Component {
 
   render() {
+    
     return (
       <div className="Header relative">
         <Marquee />
@@ -26,8 +28,11 @@ class Header extends Component {
           </div>
 
           <div className="col-9 flex items-end justify-end pr1">
+
             <div className="aesthetic-windows-95-tabbed-container">
+
               <div className="aesthetic-windows-95-tabbed-container-tabs">
+
                 <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active mx1">
                   <Link to="/cart">
                     <button>Cart</button>
@@ -49,16 +54,20 @@ class Header extends Component {
                 <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active ml1">
                   <button>Meet The Models</button>
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
-        <div className={
-          cx('Header__mini-cart r0',
-            {
-              'Header__mini-cart--active': this.props.isMiniCartOpen
-            })
-        } >
+
+        <div
+          className={cx("Header__mini-cart r0", {
+            "Header__mini-cart--active": this.props.isMiniCartOpen
+          })}
+        >
           <MiniCart
             checkout={this.props.checkout}
             isCartOpen={this.props.isCartOpen}
@@ -66,6 +75,21 @@ class Header extends Component {
             updateQuantityInCart={this.props.updateQuantityInCart}
             removeLineItemInCart={this.props.removeLineItemInCart}
           ></MiniCart>
+        </div>
+
+        <div
+          className={cx("Header__score-preview l0", {
+            "Header__score-preview--active": this.props.isScorePreviewOpen
+          })}
+        >
+
+        <ScorePreview
+          handleScorePreviewClose={this.props.handleScorePreviewClose}
+          score={this.props.score}
+          scoreMax={this.props.scoreMax}
+          scoreDifference={this.props.scoreDifference}
+        ></ScorePreview>
+
         </div>
       </div>
     );

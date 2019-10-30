@@ -68,7 +68,13 @@ class HomePageHero extends Component {
                 </div>
 
                 <div className="aesthetic-windows-xp-button-title-bar-close">
-                  <button>X</button>
+                  <button
+                    onClick={() => {
+                      this.props.addPointsToScore(1);
+                    }}
+                  >
+                    X
+                  </button>
                 </div>
               </div>
             </div>
@@ -108,7 +114,6 @@ class HomePageHero extends Component {
                     />
                   </div>
                 </Link>
-
               </div>
             </div>
           </div>

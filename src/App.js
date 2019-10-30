@@ -19,19 +19,24 @@ class App extends Component {
 
     this.state = {
       isCartOpen: false,
+      isScorePreviewOpen: false,
       checkout: { lineItems: [] },
       products: [],
       shop: {},
       featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM5OTU3MzUxOTU3NDc=",
       featuredProduct: undefined,
       collections: [],
-      points: 0,
+      score: 0,
+      scoreMax: 100,
+      scoreDifference: 0,
     };
 
     this.handleCartClose = this.handleCartClose.bind(this);
     this.addVariantToCart = this.addVariantToCart.bind(this);
     this.updateQuantityInCart = this.updateQuantityInCart.bind(this);
     this.removeLineItemInCart = this.removeLineItemInCart.bind(this);
+    this.addPointsToScore = this.addPointsToScore.bind(this);
+    this.handleScorePreviewClose = this.handleScorePreviewClose.bind(this);
   }
 
   componentDidMount() {
@@ -127,6 +132,30 @@ class App extends Component {
     });
   }
 
+  addPointsToScore(n) {
+    let difference = this.state.scoreMax - n;
+
+    this.setState({
+      score: this.state.score + n,
+      scoreDifference: difference,
+      isScorePreviewOpen: true, 
+    });
+
+    console.log(this.state.scoreDifference);
+    
+    setTimeout(() => {
+      this.setState({
+        isScorePreviewOpen: false, 
+      });
+    }, 5000);
+  }
+
+  handleScorePreviewClose() {
+    this.setState({
+      isScorePreviewOpen: false
+    });
+  }
+
   render() {
 
     const productRoutes = this.state.products.map((product, key) => {
@@ -159,7 +188,6 @@ class App extends Component {
 
     const collectionRoutes = this.state.collections.map((collection, key) => {
       const handle = `/${collection.handle}`
-      console.log('this is the collection handle', handle)
       return (
         <Route
           exact
@@ -210,12 +238,17 @@ class App extends Component {
                   path="/"
                   render={() => (
                     <div>
-                      <Header 
+                      <Header
                         checkout={this.state.checkout}
                         isCartOpen={this.state.isCartOpen}
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
+                        handleScorePreviewClose={this.handleScorePreviewClose}
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
+                        score={this.state.score}
+                        scoreMax={this.state.scoreMax}
+                        scoreDifference={this.state.scoreDifference}
                       />
                       <HomePageHero
                         addVariantToCart={this.addVariantToCart}
@@ -224,6 +257,7 @@ class App extends Component {
                         product={this.state.featuredProduct}
                         collections={this.state.collections}
                         addToCart={this.addVariantToCart}
+                        addPointsToScore={this.addPointsToScore}
                       />
                       <Footer />
                     </div>
@@ -242,6 +276,7 @@ class App extends Component {
                       <Header
                         checkout={this.state.checkout}
                         isCartOpen={this.state.isCartOpen}
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
@@ -260,6 +295,7 @@ class App extends Component {
                       <Header
                         checkout={this.state.checkout}
                         isCartOpen={this.state.isCartOpen}
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
