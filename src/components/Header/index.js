@@ -34,8 +34,8 @@ class Header extends Component {
               <div className="aesthetic-windows-95-tabbed-container-tabs">
 
                 <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active mx1">
-                  <Link to="/cart">
-                    <button>Cart</button>
+                  <Link to="/bag">
+                    <button>Bag</button>
                   </Link>
                 </div>
 

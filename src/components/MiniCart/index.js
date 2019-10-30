@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LineItem from '../LineItem/';
+import { Link } from "react-router-dom";
 import MiniCartLineItem from '../MiniCartLineItem/';
 import './MiniCart.scss'
 
@@ -70,7 +70,13 @@ class MiniCart extends Component {
 
           <div className=" aesthetic-windows-xp-button flex items-center justify-center mt1 mb_5 col-8">
 
-            <button className="MiniCart__checkout button" onClick={this.openCheckout}>Proceed To Bag</button>
+            <Link to='/bag'>
+
+              {/* <button className="MiniCart__checkout button" onClick={this.openCheckout}>Proceed To Bag</button> */}
+
+              <button className="MiniCart__checkout button">Proceed To Bag</button>
+
+            </Link>
 
           </div>
 

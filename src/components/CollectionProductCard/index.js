@@ -107,9 +107,6 @@ class CollectionProductCard extends Component {
   
   render() {
 
-    // const collectionsWithColorSwatches = ['hats'];
-    // const collectionsWithSizeSelectors = ['accessories'];
-
     const images = this.state.imageSrcs;
 
     const imageMatrix = images.reduce(

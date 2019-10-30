@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import "./ScorePreview.scss";
 
 class ScorePreview extends Component {
-  render() {
-    console.log(this.props.sco)
-    
+  render() {    
     return (
       <div
         className={`ScorePreview flex flex-col items-center justify-center p1 aesthetic-pepsi-blue-bg-color ${

@@ -9,6 +9,7 @@ import Footer from './components/Footer/';
 import AboutPage from './components/AboutPage/';
 import CollectionPage from './components/CollectionPage/';
 import PDP from './components/PDP/';
+import Collections from './components/Collections/';
 
 import './App.scss'
 import './styles/app.scss';
@@ -321,7 +322,27 @@ class App extends Component {
 
                 <Route
                   exact
-                  path="/cart"
+                  path="/collections"
+                  render={() => (
+                    <div>
+                      <Header
+                        checkout={this.state.checkout}
+                        isCartOpen={this.state.isCartOpen}
+                        handleCartClose={this.handleCartClose}
+                        updateQuantityInCart={this.updateQuantityInCart}
+                        removeLineItemInCart={this.removeLineItemInCart}
+                      />
+                      <Collections
+                        collections={this.state.collections}
+                      />
+                      <Footer />
+                    </div>
+                  )}
+                />
+
+                <Route
+                  exact
+                  path="/bag"
                   render={() => (
                     <Cart
                       checkout={this.state.checkout}
