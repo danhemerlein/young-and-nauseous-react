@@ -22,6 +22,8 @@ class ScorePreview extends Component {
 
           </div>
 
+          <p className="my_5">{this.props.scorePreviewMessage}</p>
+
           <p className="ScorePreview__score my_5">your score is {this.props.score}</p>
 
           <p className="my_5">acheive a score of {this.props.scoreMax} to unlook a scecret gift</p>

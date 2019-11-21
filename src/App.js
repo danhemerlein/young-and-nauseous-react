@@ -30,14 +30,18 @@ class App extends Component {
       score: 0,
       scoreMax: 100,
       scoreDifference: 0,
+      gameEntered: false,
+      scorePreviewMessage: null,
     };
 
-    this.handleCartClose = this.handleCartClose.bind(this);
-    this.addVariantToCart = this.addVariantToCart.bind(this);
-    this.updateQuantityInCart = this.updateQuantityInCart.bind(this);
-    this.removeLineItemInCart = this.removeLineItemInCart.bind(this);
-    this.addPointsToScore = this.addPointsToScore.bind(this);
-    this.handleScorePreviewClose = this.handleScorePreviewClose.bind(this);
+    this.handleCartClose              = this.handleCartClose.bind(this);
+    this.addVariantToCart             = this.addVariantToCart.bind(this);
+    this.updateQuantityInCart         = this.updateQuantityInCart.bind(this);
+    this.removeLineItemInCart         = this.removeLineItemInCart.bind(this);
+    this.addPointsToScore             = this.addPointsToScore.bind(this);
+    this.setScoreDifference           = this.setScoreDifference.bind(this);
+    this.handleScorePreviewClose      = this.handleScorePreviewClose.bind(this);
+    this.setScorePreviewMessage       = this.setScorePreviewMessage.bind(this);
   }
 
   componentDidMount() {
@@ -133,22 +137,25 @@ class App extends Component {
     });
   }
 
+  setScoreDifference(n) {    
+    this.setState({
+      scoreDifference: this.state.scoreDifference + n,
+    })
+  }
+
   addPointsToScore(n) {
-    let difference = this.state.scoreMax - n;
 
     this.setState({
       score: this.state.score + n,
-      scoreDifference: difference,
       isScorePreviewOpen: true, 
     });
+       
+  }
 
-    console.log(this.state.scoreDifference);
-    
-    setTimeout(() => {
-      this.setState({
-        isScorePreviewOpen: false, 
-      });
-    }, 5000);
+  setScorePreviewMessage(s) {
+    this.setState({
+      scorePreviewMessage: s,
+    })
   }
 
   handleScorePreviewClose() {
@@ -249,7 +256,8 @@ class App extends Component {
                         removeLineItemInCart={this.removeLineItemInCart}
                         score={this.state.score}
                         scoreMax={this.state.scoreMax}
-                        scoreDifference={this.state.scoreDifference}
+                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scorePreviewMessage={this.state.scorePreviewMessage}
                       />
                       <HomePageHero
                         addVariantToCart={this.addVariantToCart}
@@ -258,7 +266,9 @@ class App extends Component {
                         product={this.state.featuredProduct}
                         collections={this.state.collections}
                         addToCart={this.addVariantToCart}
+                        setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
                       />
                       <Footer />
                     </div>

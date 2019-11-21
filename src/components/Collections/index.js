@@ -4,9 +4,10 @@ import "./Collections.scss";
 import CollectionCard from "../CollectionCard";
 
 class Collections extends Component {
+
   render() {
     return (
-      <div className="Collections flex p2 aesthetic-25-transparent-bg-color">
+      <div className="Collections flex flex-col justify-center items-center p2 aesthetic-25-transparent-bg-color flex-wrap">
         {this.props.collections.map((collection, key) => {
           return (
             <CollectionCard 

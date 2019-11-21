@@ -88,6 +88,7 @@ class Header extends Component {
           score={this.props.score}
           scoreMax={this.props.scoreMax}
           scoreDifference={this.props.scoreDifference}
+          scorePreviewMessage={this.props.scorePreviewMessage}
         ></ScorePreview>
 
         </div>

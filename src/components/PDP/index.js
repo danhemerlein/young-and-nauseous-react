@@ -204,15 +204,15 @@ class PDP extends Component {
     }
 
     return (
-      <div className="PDP flex overflow-hidden ">
+      <div className="PDP flex overflow-hidden flex-col lg:flex-row">
   
-        <div className="col-6">
+        <div className="col-12 lg:col-5">
 
           {imageMarkup}
 
         </div>
 
-        <div className="col-6 flex items-center justify-center flex-col aesthetic-25-transparent-bg-color">
+        <div className="col-12 lg:col-7 flex items-center justify-center flex-col aesthetic-25-transparent-bg-color p2">
 
           <div className="aesthetic-75-transparent-bg-color p2 flex items-center justify-center flex-col">
 

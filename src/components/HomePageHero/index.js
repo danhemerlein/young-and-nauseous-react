@@ -32,7 +32,6 @@ class HomePageHero extends Component {
   }
 
   render() {
-    console.log(this.props.collections);
 
     const heroImage = {
       backgroundImage: "url(https://cdn.shopify.com/s/files/1/0269/5793/8787/files/rockinwithlights_8.png?20)",
@@ -64,12 +63,21 @@ class HomePageHero extends Component {
 
               <div className="aesthetic-windows-xp-modal-title-bar-controls">
                 <div className="aesthetic-windows-xp-button-title-bar">
-                  <button>_</button>
+                  <button
+                    onClick={() => {
+                      this.props.setScorePreviewMessage('you clicked a weird - button !');
+                      this.props.setScoreDifference(1);
+                      this.props.addPointsToScore(1);
+                    }}
+                  
+                  >-</button>
                 </div>
 
                 <div className="aesthetic-windows-xp-button-title-bar-close">
                   <button
                     onClick={() => {
+                      this.props.setScorePreviewMessage('you clicked a weird x button !');
+                      this.props.setScoreDifference(1);
                       this.props.addPointsToScore(1);
                     }}
                   >
@@ -130,7 +138,13 @@ class HomePageHero extends Component {
 
               <div class="aesthetic-windows-95-modal-title-bar-controls">
                 <div class="aesthetic-windows-95-button-title-bar">
-                  <button>X</button>
+                  <button onClick={() => {
+                      this.props.setScorePreviewMessage('you clicked a weird x button !');
+                      this.props.setScoreDifference(1);
+                      this.props.addPointsToScore(1);
+                    }}
+                  >
+                  X</button>
                 </div>
               </div>
             </div>
