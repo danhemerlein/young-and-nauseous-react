@@ -154,9 +154,15 @@ class HomePageHero extends Component {
               <div className="aesthetic-windows-95-modal-title-bar-controls">
                 <div className="aesthetic-windows-95-button-title-bar">
                   <button onClick={() => {
-                      this.props.setScorePreviewMessage('you clicked a weird x button !');
-                      this.props.setScoreDifference(1);
-                      this.props.addPointsToScore(1);
+                      const id = 'HomePageHero-featured-modal-title-close-button';
+
+                      this.props.updateGame(id);
+
+                      if (!this.props.game.includes(id)) {
+                        this.props.setScorePreviewMessage('you clicked a weird x button !');
+                        this.props.setScoreDifference(1);
+                        this.props.addPointsToScore(1);
+                      }
                     }}
                   >
                   X</button>

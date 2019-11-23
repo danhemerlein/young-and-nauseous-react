@@ -24,11 +24,11 @@ class ScorePreview extends Component {
 
           <p className="my_5">{this.props.scorePreviewMessage}</p>
 
-          <p className="ScorePreview__score my_5">your score is {this.props.score}</p>
+          <p className="ScorePreview__score my_5">your score is <span className="aesthetic-pepsi-red-color">{this.props.score}</span></p>
 
-          <p className="my_5">acheive a score of {this.props.scoreMax} to unlook a scecret gift</p>
+          <p className="my_5">acheive a score of span. <span className="aesthetic-pepsi-red-color">{this.props.scoreMax}</span> to unlock a scecret gift</p>
 
-          <p className="my_5">only {this.props.scoreDifference} points remaining</p>
+          <p className="my_5">only <span className="aesthetic-pepsi-red-color">{this.props.scoreDifference}</span> points remaining</p>
 
         </div>
        

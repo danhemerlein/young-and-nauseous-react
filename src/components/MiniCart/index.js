@@ -48,19 +48,6 @@ class MiniCart extends Component {
         </ul>
         <footer className="MiniCart__footer aesthetic-pepsi-white-color w100">
 
-          {/* <div className="MiniCart-info">
-            <div className="MiniCart-info__total MiniCart-info__small">Subtotal</div>
-            <div className="MiniCart-info__pricing">
-              <span className="pricing">$ {this.props.checkout.subtotalPrice}</span>
-            </div>
-          </div> */}
-          {/* <div className="MiniCart-info">
-            <div className="MiniCart-info__total MiniCart-info__small">Taxes</div>
-            <div className="MiniCart-info__pricing">
-              <span className="pricing">$ {this.props.checkout.totalTax}</span>
-            </div>
-          </div> */}
-
           <div className="MiniCart-info flex justify-between w100">
             <div className="MiniCart-info__total MiniCart-info__small bold">T O T A L</div>
             <div className="MiniCart-info__pricing">
@@ -71,8 +58,6 @@ class MiniCart extends Component {
           <div className=" aesthetic-windows-xp-button flex items-center justify-center mt1 mb_5 col-8">
 
             <Link to='/bag'>
-
-              {/* <button className="MiniCart__checkout button" onClick={this.openCheckout}>Proceed To Bag</button> */}
 
               <button className="MiniCart__checkout button">Proceed To Bag</button>
 

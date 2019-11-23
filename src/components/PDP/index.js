@@ -116,6 +116,8 @@ class PDP extends Component {
   render() {
 
     const images = this.state.imageSrcs;
+    const productHandle = this.props.product.handle;
+    const productTitle= this.props.product.title;
 
     const imageMatrix = images.reduce(
       (rows, image, index) =>
@@ -235,7 +237,18 @@ class PDP extends Component {
             {sizeSelectorMarkUp}
 
             <div className="aesthetic-windows-95-button col-3 my1">
-              <button onClick={() => { this.props.addToCart(this.state.activeVariantID, 1) }}> place in bag</button>
+              <button onClick={() => { 
+                this.props.addToCart(this.state.activeVariantID, 1) 
+
+                  // this.props.updateGame(productHandle);
+                  
+                  if (!this.props.game.includes(productHandle)) {
+                    this.props.setScorePreviewMessage(`hell yeah, you added ${productTitle} to your cart`);
+                    this.props.setScoreDifference(20);
+                    this.props.addPointsToScore(20);
+                  }
+                
+                }}> place in bag</button>
             </div>
 
           </div>

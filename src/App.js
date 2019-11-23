@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Products from './components/Products/';
 import Cart from './components/Cart/';
 import HomePageHero from './components/HomePageHero/';
 import Header from './components/Header/';
 import Footer from './components/Footer/';
-import AboutPage from './components/AboutPage/';
+import AboutPage from './components/Pages/AboutPage';
 import CollectionPage from './components/CollectionPage/';
 import PDP from './components/PDP/';
 import Collections from './components/Collections/';
+import MeetTheModels from './components/Pages/MeetTheModels';
+import SiteMap from './components/Pages/SiteMap';
 
 import './App.scss'
 import './styles/app.scss';
@@ -101,9 +102,7 @@ class App extends Component {
       this.setState({
         isCartOpen: false,
       })
-
     }, 5000);
-
 
     return this.props.client.checkout.addLineItems(checkoutId, lineItemsToAdd).then(res => {
       this.setState({
@@ -116,7 +115,6 @@ class App extends Component {
   updateQuantityInCart(lineItemId, quantity) {
     const checkoutId = this.state.checkout.id
     const lineItemsToUpdate = [{ id: lineItemId, quantity: parseInt(quantity, 10) }]
-
 
     return this.props.client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then(res => {
       this.setState({
@@ -210,18 +208,48 @@ class App extends Component {
             <div>
               <Header
                 checkout={this.state.checkout}
-                isCartOpen={this.state.isCartOpen}
+                isMiniCartOpen={this.state.isCartOpen}
                 handleCartClose={this.handleCartClose}
                 updateQuantityInCart={this.updateQuantityInCart}
                 removeLineItemInCart={this.removeLineItemInCart}
-                isMiniCartOpen={this.state.isCartOpen}
-                cartQuantity={this.state.checkout}
+
+                cartQty={this.state.checkout.lineItems.length}
+
+                isScorePreviewOpen={this.state.isScorePreviewOpen}
+                handleScorePreviewClose={this.handleScorePreviewClose}
+
+                isScoreWarningOpen={this.state.isScoreWarningOpen}
+                handleScoreWarningClose={this.handleScoreWarningClose}
+
+                score={this.state.score}
+                scoreMax={this.state.scoreMax}
+                scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                scorePreviewMessage={this.state.scorePreviewMessage}
+
+                setScorePreviewMessage={this.setScorePreviewMessage}
+                addPointsToScore={this.addPointsToScore}
+                setScoreDifference={this.setScoreDifference}
+                updateGame={this.updateGame}
+                game={this.state.game}
+
               />
               <PDP 
                 product={this.state.products[key]}
                 addToCart={this.addVariantToCart}
+
+                setScorePreviewMessage={this.setScorePreviewMessage}
+                addPointsToScore={this.addPointsToScore}
+                setScoreDifference={this.setScoreDifference}
+                updateGame={this.updateGame}
+                game={this.state.game}
               />
-              <Footer />
+              <Footer 
+                setScorePreviewMessage={this.setScorePreviewMessage}
+                addPointsToScore={this.addPointsToScore}
+                setScoreDifference={this.setScoreDifference}
+                updateGame={this.updateGame}
+                game={this.state.game}
+              />
             </div>
           )}
           />
@@ -239,16 +267,41 @@ class App extends Component {
             <div>
               <Header
                 checkout={this.state.checkout}
-                isCartOpen={this.state.isCartOpen}
+                isMiniCartOpen={this.state.isCartOpen}
                 handleCartClose={this.handleCartClose}
                 updateQuantityInCart={this.updateQuantityInCart}
                 removeLineItemInCart={this.removeLineItemInCart}
+                cartQty={this.state.checkout.lineItems.length}
+
+                isScorePreviewOpen={this.state.isScorePreviewOpen}
+                handleScorePreviewClose={this.handleScorePreviewClose}
+
+                isScoreWarningOpen={this.state.isScoreWarningOpen}
+                handleScoreWarningClose={this.handleScoreWarningClose}
+
+                score={this.state.score}
+                scoreMax={this.state.scoreMax}
+                scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                scorePreviewMessage={this.state.scorePreviewMessage}
+
+                setScorePreviewMessage={this.setScorePreviewMessage}
+                addPointsToScore={this.addPointsToScore}
+                setScoreDifference={this.setScoreDifference}
+                updateGame={this.updateGame}
+                game={this.state.game}
+
               />
               <CollectionPage 
                 products={this.state.collections[key]} 
                 collectionHandle={collection.handle}
               />
-              <Footer />
+              <Footer 
+                setScorePreviewMessage={this.setScorePreviewMessage}
+                addPointsToScore={this.addPointsToScore}
+                setScoreDifference={this.setScoreDifference}
+                updateGame={this.updateGame}
+                game={this.state.game}
+              />
             </div>
           )}
         />
@@ -283,10 +336,11 @@ class App extends Component {
                     <div>
                       <Header
                         checkout={this.state.checkout}
-                        isCartOpen={this.state.isCartOpen}
+                        isMiniCartOpen={this.state.isCartOpen}
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
+                        cartQty={this.state.checkout.lineItems.length}
 
                         isScorePreviewOpen={this.state.isScorePreviewOpen}
                         handleScorePreviewClose={this.handleScorePreviewClose}
@@ -298,6 +352,12 @@ class App extends Component {
                         scoreMax={this.state.scoreMax}
                         scoreDifference={this.state.scoreMax - this.state.scoreDifference}
                         scorePreviewMessage={this.state.scorePreviewMessage}
+
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
 
                       />
                       <HomePageHero
@@ -314,7 +374,13 @@ class App extends Component {
                         updateGame={this.updateGame}
                         game={this.state.game}
                       />
-                      <Footer />
+                      <Footer 
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+                      />
                     </div>
                   )}
                 />
@@ -330,45 +396,37 @@ class App extends Component {
                     <div>
                       <Header
                         checkout={this.state.checkout}
-                        isCartOpen={this.state.isCartOpen}
-                        isScorePreviewOpen={this.state.isScorePreviewOpen}
+                        isMiniCartOpen={this.state.isCartOpen}
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
+                        cartQty={this.state.checkout.lineItems.length}
+
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
+                        handleScorePreviewClose={this.handleScorePreviewClose}
+
+                        isScoreWarningOpen={this.state.isScoreWarningOpen}
+                        handleScoreWarningClose={this.handleScoreWarningClose}
+
+                        score={this.state.score}
+                        scoreMax={this.state.scoreMax}
+                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scorePreviewMessage={this.state.scorePreviewMessage}
+
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+
                       />
                       <AboutPage />
-                      <Footer />
-                    </div>
-                  )}
-                />
-
-                <Route
-                  exact
-                  path="/y&n-tote"
-                  render={() => (
-                    <div>
-                      <Header
-                        checkout={this.state.checkout}
-                        isCartOpen={this.state.isCartOpen}
-                        isScorePreviewOpen={this.state.isScorePreviewOpen}
-                        handleCartClose={this.handleCartClose}
-                        updateQuantityInCart={this.updateQuantityInCart}
-                        removeLineItemInCart={this.removeLineItemInCart}
-                      />
-                      <PDP product={this.state.featuredProduct} />
-                    </div>
-                  )}
-                />
-
-                <Route
-                  exact
-                  path="/shop-all"
-                  render={() => (
-                    <div>
-                      <Products
-                        products={this.state.products}
-                        client={this.props.client}
-                        addVariantToCart={this.addVariantToCart}
+                      <Footer 
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
                       />
                     </div>
                   )}
@@ -381,15 +439,123 @@ class App extends Component {
                     <div>
                       <Header
                         checkout={this.state.checkout}
-                        isCartOpen={this.state.isCartOpen}
+                        isMiniCartOpen={this.state.isCartOpen}
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
+
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
+                        handleScorePreviewClose={this.handleScorePreviewClose}
+
+                        isScoreWarningOpen={this.state.isScoreWarningOpen}
+                        handleScoreWarningClose={this.handleScoreWarningClose}
+
+                        score={this.state.score}
+                        scoreMax={this.state.scoreMax}
+                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scorePreviewMessage={this.state.scorePreviewMessage}
+
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+
                       />
                       <Collections
                         collections={this.state.collections}
                       />
-                      <Footer />
+                      <Footer 
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+                      />
+                    </div>
+                  )}
+                />
+
+                <Route
+                  exact
+                  path="/meet-the-models"
+                  render={() => (
+                    <div>
+                      <Header
+                        checkout={this.state.checkout}
+                        isMiniCartOpen={this.state.isCartOpen}
+                        handleCartClose={this.handleCartClose}
+                        updateQuantityInCart={this.updateQuantityInCart}
+                        removeLineItemInCart={this.removeLineItemInCart}
+
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
+                        handleScorePreviewClose={this.handleScorePreviewClose}
+
+                        isScoreWarningOpen={this.state.isScoreWarningOpen}
+                        handleScoreWarningClose={this.handleScoreWarningClose}
+
+                        score={this.state.score}
+                        scoreMax={this.state.scoreMax}
+                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scorePreviewMessage={this.state.scorePreviewMessage}
+
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+
+                      />
+                      <MeetTheModels/>
+                      <Footer 
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+                      />
+                    </div>
+                  )}
+                />
+
+                <Route
+                  exact
+                  path="/site-map"
+                  render={() => (
+                    <div>
+                      <Header
+                        checkout={this.state.checkout}
+                        isMiniCartOpen={this.state.isCartOpen}
+                        handleCartClose={this.handleCartClose}
+                        updateQuantityInCart={this.updateQuantityInCart}
+                        removeLineItemInCart={this.removeLineItemInCart}
+
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
+                        handleScorePreviewClose={this.handleScorePreviewClose}
+
+                        isScoreWarningOpen={this.state.isScoreWarningOpen}
+                        handleScoreWarningClose={this.handleScoreWarningClose}
+
+                        score={this.state.score}
+                        scoreMax={this.state.scoreMax}
+                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scorePreviewMessage={this.state.scorePreviewMessage}
+
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+
+                      />
+                      <SiteMap />
+                      <Footer
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+                      />
                     </div>
                   )}
                 />
