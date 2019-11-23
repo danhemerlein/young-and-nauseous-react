@@ -13,7 +13,7 @@ class AboutPage extends Component {
         </h2>
 
         <h2 className="HomePageHero__headline true-sketch-rg  aesthetic-font-modifier-outline-purple text-center py4">
-          Young & Nauseous was started by Dan Hemerlein from his bed in billyburg while he was stoned and bored
+          Young & Nauseous was started by Dan Hemerlein from his bed while he was stoned and bored
         </h2>
 
       </div>

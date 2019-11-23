@@ -65,9 +65,18 @@ class HomePageHero extends Component {
                 <div className="aesthetic-windows-xp-button-title-bar">
                   <button
                     onClick={() => {
-                      this.props.setScorePreviewMessage('you clicked a weird - button !');
-                      this.props.setScoreDifference(1);
-                      this.props.addPointsToScore(1);
+                      const id = 'HomePageHero-featured-collection-minimize-button';
+
+                      this.props.updateGame(id);
+                      
+                      if (!this.props.game.includes(id)) {
+
+                        this.props.setScorePreviewMessage('you clicked a weird - button !');
+                        this.props.setScoreDifference(1);
+                        this.props.addPointsToScore(1);
+
+                      }
+
                     }}
                   
                   >-</button>
@@ -76,9 +85,15 @@ class HomePageHero extends Component {
                 <div className="aesthetic-windows-xp-button-title-bar-close">
                   <button
                     onClick={() => {
-                      this.props.setScorePreviewMessage('you clicked a weird x button !');
-                      this.props.setScoreDifference(1);
-                      this.props.addPointsToScore(1);
+                      const id = 'HomePageHero-featured-collection-close-button';
+
+                      this.props.updateGame(id);
+
+                      if (!this.props.game.includes(id)) {
+                        this.props.setScorePreviewMessage('you clicked a weird x button !');
+                        this.props.setScoreDifference(1);
+                        this.props.addPointsToScore(1);
+                      }
                     }}
                   >
                     X
@@ -130,14 +145,14 @@ class HomePageHero extends Component {
             we never skimp on the gram
           </h2>
 
-          <div class="HomePageHero__featured-collection-container aesthetic-windows-95-modal">
-            <div class="aesthetic-windows-95-modal-title-bar">
-              <div class="aesthetic-windows-95-modal-title-bar-text">
+          <div className="HomePageHero__featured-collection-container aesthetic-windows-95-modal">
+            <div className="aesthetic-windows-95-modal-title-bar">
+              <div className="aesthetic-windows-95-modal-title-bar-text">
                 Y O U N G & N A U S E O U S
               </div>
 
-              <div class="aesthetic-windows-95-modal-title-bar-controls">
-                <div class="aesthetic-windows-95-button-title-bar">
+              <div className="aesthetic-windows-95-modal-title-bar-controls">
+                <div className="aesthetic-windows-95-button-title-bar">
                   <button onClick={() => {
                       this.props.setScorePreviewMessage('you clicked a weird x button !');
                       this.props.setScoreDifference(1);
@@ -149,7 +164,7 @@ class HomePageHero extends Component {
               </div>
             </div>
 
-            <div class="aesthetic-windows-95-modal-content">
+            <div className="aesthetic-windows-95-modal-content">
               <div className="bg-blue p4">
                 <HomePageContent
                   image={

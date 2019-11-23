@@ -5,7 +5,7 @@ class ScorePreview extends Component {
   render() {    
     return (
       <div
-        className={`ScorePreview flex flex-col items-center justify-center p1 aesthetic-pepsi-blue-bg-color ${
+        className={`ScorePreview flex flex-col items-center justify-center playfair p1 aesthetic-pepsi-blue-bg-color ${
           this.props.isCartOpen ? "ScorePreview--open" : ""
         }`}
       >

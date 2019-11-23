@@ -4,7 +4,6 @@ import './FeaturedCollection.scss'
 class FeaturedCollection extends Component {
 
   render() {
-    console.log(this.props.image)
     const bgDesign = {
       backgroundImage: `url(${this.props.bg})`,
       backgroundPosition: "center",

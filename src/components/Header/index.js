@@ -5,6 +5,7 @@ import cx from 'classnames';
 import Marquee from "../Marquee/";
 import MiniCart from "../MiniCart/";
 import ScorePreview from "../ScorePreview/";
+import ScoreWarning from "../ScoreWarning/";
 
 import './Header.scss'
 
@@ -83,15 +84,30 @@ class Header extends Component {
           })}
         >
 
-        <ScorePreview
-          handleScorePreviewClose={this.props.handleScorePreviewClose}
-          score={this.props.score}
-          scoreMax={this.props.scoreMax}
-          scoreDifference={this.props.scoreDifference}
-          scorePreviewMessage={this.props.scorePreviewMessage}
-        ></ScorePreview>
+          <ScorePreview
+            handleScorePreviewClose={this.props.handleScorePreviewClose}
+            score={this.props.score}
+            scoreMax={this.props.scoreMax}
+            scoreDifference={this.props.scoreDifference}
+            scorePreviewMessage={this.props.scorePreviewMessage}
+          ></ScorePreview>
 
         </div>
+
+        <div
+          className={cx("Header__score-warning r0", {
+            "Header__score-warning--active": this.props.isScoreWarningOpen
+          })}
+        >
+
+          <ScoreWarning
+            handleScoreWarningClose={this.props.handleScoreWarningClose}
+            scoreWarningMessage={this.props.scoreWarningMessage}
+            score={this.props.score}
+          ></ScoreWarning>
+
+        </div>
+
       </div>
     );
   }

@@ -21,6 +21,7 @@ class App extends Component {
     this.state = {
       isCartOpen: false,
       isScorePreviewOpen: false,
+      isScoreWarningOpen: false,
       checkout: { lineItems: [] },
       products: [],
       shop: {},
@@ -30,8 +31,8 @@ class App extends Component {
       score: 0,
       scoreMax: 100,
       scoreDifference: 0,
-      gameEntered: false,
       scorePreviewMessage: null,
+      game: [],
     };
 
     this.handleCartClose              = this.handleCartClose.bind(this);
@@ -42,6 +43,9 @@ class App extends Component {
     this.setScoreDifference           = this.setScoreDifference.bind(this);
     this.handleScorePreviewClose      = this.handleScorePreviewClose.bind(this);
     this.setScorePreviewMessage       = this.setScorePreviewMessage.bind(this);
+    this.updateGame                   = this.updateGame.bind(this);
+    this.openScoreWarning             = this.openScoreWarning.bind(this);
+    this.handleScoreWarningClose      = this.handleScoreWarningClose.bind(this);
   }
 
   componentDidMount() {
@@ -137,6 +141,16 @@ class App extends Component {
     });
   }
 
+  updateGame(id) {    
+    if(!this.state.game.includes(id)) {
+      this.setState({
+        game: this.state.game.concat(id),
+      })
+    } else {
+      this.openScoreWarning();
+    }
+  }
+
   setScoreDifference(n) {    
     this.setState({
       scoreDifference: this.state.scoreDifference + n,
@@ -144,12 +158,10 @@ class App extends Component {
   }
 
   addPointsToScore(n) {
-
     this.setState({
       score: this.state.score + n,
       isScorePreviewOpen: true, 
     });
-       
   }
 
   setScorePreviewMessage(s) {
@@ -164,12 +176,34 @@ class App extends Component {
     });
   }
 
+  openScoreWarning() {
+  
+    this.setState({
+      isScoreWarningOpen: true,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        isScoreWarningOpen: false,
+      })
+
+    }, 5000);
+
+  }
+
+  handleScoreWarningClose() {
+    this.setState({
+      isScoreWarningOpen: false
+    });
+  }
+
   render() {
 
     const productRoutes = this.state.products.map((product, key) => {
     const handle = `/${product.handle}`
       return (
         <Route
+          key={key}
           exact
           path={handle}
           render={() => (
@@ -198,6 +232,7 @@ class App extends Component {
       const handle = `/${collection.handle}`
       return (
         <Route
+          key={key}
           exact
           path={handle}
           render={() => (
@@ -228,7 +263,7 @@ class App extends Component {
 
       return (
 
-        <div class="play-fair color-pink bg-blue flex justify-center items-center" style={loadingStyle}>
+        <div className="play-fair color-pink bg-blue flex justify-center items-center" style={loadingStyle}>
           loading...
         </div>
 
@@ -249,15 +284,21 @@ class App extends Component {
                       <Header
                         checkout={this.state.checkout}
                         isCartOpen={this.state.isCartOpen}
-                        isScorePreviewOpen={this.state.isScorePreviewOpen}
-                        handleScorePreviewClose={this.handleScorePreviewClose}
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
+
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
+                        handleScorePreviewClose={this.handleScorePreviewClose}
+
+                        isScoreWarningOpen={this.state.isScoreWarningOpen}
+                        handleScoreWarningClose={this.handleScoreWarningClose}
+
                         score={this.state.score}
                         scoreMax={this.state.scoreMax}
                         scoreDifference={this.state.scoreMax - this.state.scoreDifference}
                         scorePreviewMessage={this.state.scorePreviewMessage}
+
                       />
                       <HomePageHero
                         addVariantToCart={this.addVariantToCart}
@@ -266,9 +307,12 @@ class App extends Component {
                         product={this.state.featuredProduct}
                         collections={this.state.collections}
                         addToCart={this.addVariantToCart}
+
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
                       />
                       <Footer />
                     </div>
