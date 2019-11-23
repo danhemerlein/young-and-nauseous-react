@@ -11,6 +11,7 @@ import PDP from './components/PDP/';
 import Collections from './components/Collections/';
 import MeetTheModels from './components/Pages/MeetTheModels';
 import SiteMap from './components/Pages/SiteMap';
+import NoMatch from './components/Pages/NoMatch';
 
 import './App.scss'
 import './styles/app.scss';
@@ -75,9 +76,13 @@ class App extends Component {
     }).then(() => {
       this.props.client.collection.fetchAllWithProducts().then((collections) => {
 
+        const filteredCollections = collections.filter(collection => {
+          return collection.handle !== 'secret-gift';
+        })
+
         // Do something with the collections
         this.setState({
-          collections: collections,
+          collections: filteredCollections,
         });
       });
 
@@ -199,61 +204,63 @@ class App extends Component {
 
     const productRoutes = this.state.products.map((product, key) => {
     const handle = `/${product.handle}`
-      return (
-        <Route
-          key={key}
-          exact
-          path={handle}
-          render={() => (
-            <div>
-              <Header
-                checkout={this.state.checkout}
-                isMiniCartOpen={this.state.isCartOpen}
-                handleCartClose={this.handleCartClose}
-                updateQuantityInCart={this.updateQuantityInCart}
-                removeLineItemInCart={this.removeLineItemInCart}
+      if (product.handle !== 'secret-gift' ) {
+        return (
+          <Route
+            key={key}
+            exact
+            path={handle}
+            render={() => (
+              <div>
+                <Header
+                  checkout={this.state.checkout}
+                  isMiniCartOpen={this.state.isCartOpen}
+                  handleCartClose={this.handleCartClose}
+                  updateQuantityInCart={this.updateQuantityInCart}
+                  removeLineItemInCart={this.removeLineItemInCart}
 
-                cartQty={this.state.checkout.lineItems.length}
+                  cartQty={this.state.checkout.lineItems.length}
 
-                isScorePreviewOpen={this.state.isScorePreviewOpen}
-                handleScorePreviewClose={this.handleScorePreviewClose}
+                  isScorePreviewOpen={this.state.isScorePreviewOpen}
+                  handleScorePreviewClose={this.handleScorePreviewClose}
 
-                isScoreWarningOpen={this.state.isScoreWarningOpen}
-                handleScoreWarningClose={this.handleScoreWarningClose}
+                  isScoreWarningOpen={this.state.isScoreWarningOpen}
+                  handleScoreWarningClose={this.handleScoreWarningClose}
 
-                score={this.state.score}
-                scoreMax={this.state.scoreMax}
-                scoreDifference={this.state.scoreMax - this.state.scoreDifference}
-                scorePreviewMessage={this.state.scorePreviewMessage}
+                  score={this.state.score}
+                  scoreMax={this.state.scoreMax}
+                  scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                  scorePreviewMessage={this.state.scorePreviewMessage}
 
-                setScorePreviewMessage={this.setScorePreviewMessage}
-                addPointsToScore={this.addPointsToScore}
-                setScoreDifference={this.setScoreDifference}
-                updateGame={this.updateGame}
-                game={this.state.game}
+                  setScorePreviewMessage={this.setScorePreviewMessage}
+                  addPointsToScore={this.addPointsToScore}
+                  setScoreDifference={this.setScoreDifference}
+                  updateGame={this.updateGame}
+                  game={this.state.game}
 
-              />
-              <PDP 
-                product={this.state.products[key]}
-                addToCart={this.addVariantToCart}
+                />
+                <PDP 
+                  product={this.state.products[key]}
+                  addToCart={this.addVariantToCart}
 
-                setScorePreviewMessage={this.setScorePreviewMessage}
-                addPointsToScore={this.addPointsToScore}
-                setScoreDifference={this.setScoreDifference}
-                updateGame={this.updateGame}
-                game={this.state.game}
-              />
-              <Footer 
-                setScorePreviewMessage={this.setScorePreviewMessage}
-                addPointsToScore={this.addPointsToScore}
-                setScoreDifference={this.setScoreDifference}
-                updateGame={this.updateGame}
-                game={this.state.game}
-              />
-            </div>
-          )}
-          />
-        )
+                  setScorePreviewMessage={this.setScorePreviewMessage}
+                  addPointsToScore={this.addPointsToScore}
+                  setScoreDifference={this.setScoreDifference}
+                  updateGame={this.updateGame}
+                  game={this.state.game}
+                />
+                <Footer 
+                  setScorePreviewMessage={this.setScorePreviewMessage}
+                  addPointsToScore={this.addPointsToScore}
+                  setScoreDifference={this.setScoreDifference}
+                  updateGame={this.updateGame}
+                  game={this.state.game}
+                />
+              </div>
+            )}
+            />
+          )
+        }
       });
 
     const collectionRoutes = this.state.collections.map((collection, key) => {
@@ -574,6 +581,48 @@ class App extends Component {
                   )}
                 />
               </Switch>
+
+              <Route
+
+                render={() => (
+                  <div>
+                    <Header
+                      checkout={this.state.checkout}
+                      isMiniCartOpen={this.state.isCartOpen}
+                      handleCartClose={this.handleCartClose}
+                      updateQuantityInCart={this.updateQuantityInCart}
+                      removeLineItemInCart={this.removeLineItemInCart}
+
+                      isScorePreviewOpen={this.state.isScorePreviewOpen}
+                      handleScorePreviewClose={this.handleScorePreviewClose}
+
+                      isScoreWarningOpen={this.state.isScoreWarningOpen}
+                      handleScoreWarningClose={this.handleScoreWarningClose}
+
+                      score={this.state.score}
+                      scoreMax={this.state.scoreMax}
+                      scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                      scorePreviewMessage={this.state.scorePreviewMessage}
+
+                      setScorePreviewMessage={this.setScorePreviewMessage}
+                      addPointsToScore={this.addPointsToScore}
+                      setScoreDifference={this.setScoreDifference}
+                      updateGame={this.updateGame}
+                      game={this.state.game}
+
+                    />
+                    <NoMatch />
+                    <Footer
+                      setScorePreviewMessage={this.setScorePreviewMessage}
+                      addPointsToScore={this.addPointsToScore}
+                      setScoreDifference={this.setScoreDifference}
+                      updateGame={this.updateGame}
+                      game={this.state.game}
+                    />
+                  </div>
+                )}
+              />
+
             </Router>
           </div>
         );
