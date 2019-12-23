@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import './FeaturedCollection.scss'
 
 class FeaturedCollection extends Component {
@@ -11,16 +12,28 @@ class FeaturedCollection extends Component {
       backgroundRepeat: 'no-repeat',
       overflow: 'hidden',
     };
+    const linkDestination = "/" + this.props.linkDestination;
     return (
       <div className="FeaturedCollection col-8 aesthetic-purple-bg-color p4">
 
         <div style={bgDesign} className="FeaturedCollection__bg w100 relative">
-          <img className="w100" src={this.props.image.src} alt="" />
 
-          <h2 className="FeaturedCollection__collection-title aesthetic-arizona-lime-color aesthetic-font-modifier-gradient-arizona true-sketch-rg absolute ">
-            {this.props.title}
-          </h2>
+          <Link to={linkDestination}>
+
+            <div className="flex justify-center p1">
+
+              <img className="col-6" src={this.props.image.src} alt="" />
+
+              <h2 className="FeaturedCollection__collection-title aesthetic-arizona-lime-color aesthetic-font-modifier-gradient-arizona true-sketch-rg absolute ">
+                {this.props.title}
+              </h2>
+
+            </div>
+
+          </Link>
+
         </div>
+
       </div>
     );
   }

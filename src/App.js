@@ -35,6 +35,7 @@ class App extends Component {
       scoreDifference: 0,
       scorePreviewMessage: null,
       game: [],
+      gameComplete: false,
     };
 
     this.handleCartClose              = this.handleCartClose.bind(this);
@@ -144,7 +145,7 @@ class App extends Component {
     });
   }
 
-  updateGame(id) {    
+  updateGame(id) {
     if(!this.state.game.includes(id)) {
       this.setState({
         game: this.state.game.concat(id),
@@ -154,7 +155,7 @@ class App extends Component {
     }
   }
 
-  setScoreDifference(n) {    
+  setScoreDifference(n) {
     this.setState({
       scoreDifference: this.state.scoreDifference + n,
     })
@@ -163,7 +164,7 @@ class App extends Component {
   addPointsToScore(n) {
     this.setState({
       score: this.state.score + n,
-      isScorePreviewOpen: true, 
+      isScorePreviewOpen: true,
     });
   }
 
@@ -180,7 +181,7 @@ class App extends Component {
   }
 
   openScoreWarning() {
-  
+
     this.setState({
       isScoreWarningOpen: true,
     });
@@ -239,7 +240,7 @@ class App extends Component {
                   game={this.state.game}
 
                 />
-                <PDP 
+                <PDP
                   product={this.state.products[key]}
                   addToCart={this.addVariantToCart}
 
@@ -249,7 +250,7 @@ class App extends Component {
                   updateGame={this.updateGame}
                   game={this.state.game}
                 />
-                <Footer 
+                <Footer
                   setScorePreviewMessage={this.setScorePreviewMessage}
                   addPointsToScore={this.addPointsToScore}
                   setScoreDifference={this.setScoreDifference}
@@ -298,11 +299,11 @@ class App extends Component {
                 game={this.state.game}
 
               />
-              <CollectionPage 
-                products={this.state.collections[key]} 
+              <CollectionPage
+                products={this.state.collections[key]}
                 collectionHandle={collection.handle}
               />
-              <Footer 
+              <Footer
                 setScorePreviewMessage={this.setScorePreviewMessage}
                 addPointsToScore={this.addPointsToScore}
                 setScoreDifference={this.setScoreDifference}
@@ -316,7 +317,7 @@ class App extends Component {
     })
 
     if (this.state.featuredProduct === undefined || !this.state.collections.length || !this.state.products.length) {
-      
+
       const loadingStyle = {
         height: '100vh',
       };
@@ -328,7 +329,7 @@ class App extends Component {
         </div>
 
       )
-      
+
     } else {
         return (
           <div className="App">
@@ -348,24 +349,21 @@ class App extends Component {
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
                         cartQty={this.state.checkout.lineItems.length}
-
                         isScorePreviewOpen={this.state.isScorePreviewOpen}
                         handleScorePreviewClose={this.handleScorePreviewClose}
-
                         isScoreWarningOpen={this.state.isScoreWarningOpen}
                         handleScoreWarningClose={this.handleScoreWarningClose}
-
                         score={this.state.score}
                         scoreMax={this.state.scoreMax}
-                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scoreDifference={
+                          this.state.scoreMax - this.state.scoreDifference
+                        }
                         scorePreviewMessage={this.state.scorePreviewMessage}
-
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
-
                       />
                       <HomePageHero
                         addVariantToCart={this.addVariantToCart}
@@ -374,14 +372,13 @@ class App extends Component {
                         product={this.state.featuredProduct}
                         collections={this.state.collections}
                         addToCart={this.addVariantToCart}
-
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
                       />
-                      <Footer 
+                      <Footer
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
@@ -408,27 +405,24 @@ class App extends Component {
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
                         cartQty={this.state.checkout.lineItems.length}
-
                         isScorePreviewOpen={this.state.isScorePreviewOpen}
                         handleScorePreviewClose={this.handleScorePreviewClose}
-
                         isScoreWarningOpen={this.state.isScoreWarningOpen}
                         handleScoreWarningClose={this.handleScoreWarningClose}
-
                         score={this.state.score}
                         scoreMax={this.state.scoreMax}
-                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scoreDifference={
+                          this.state.scoreMax - this.state.scoreDifference
+                        }
                         scorePreviewMessage={this.state.scorePreviewMessage}
-
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
-
                       />
                       <AboutPage />
-                      <Footer 
+                      <Footer
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
@@ -450,29 +444,24 @@ class App extends Component {
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
-
                         isScorePreviewOpen={this.state.isScorePreviewOpen}
                         handleScorePreviewClose={this.handleScorePreviewClose}
-
                         isScoreWarningOpen={this.state.isScoreWarningOpen}
                         handleScoreWarningClose={this.handleScoreWarningClose}
-
                         score={this.state.score}
                         scoreMax={this.state.scoreMax}
-                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scoreDifference={
+                          this.state.scoreMax - this.state.scoreDifference
+                        }
                         scorePreviewMessage={this.state.scorePreviewMessage}
-
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
-
                       />
-                      <Collections
-                        collections={this.state.collections}
-                      />
-                      <Footer 
+                      <Collections collections={this.state.collections} />
+                      <Footer
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
@@ -494,27 +483,24 @@ class App extends Component {
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
-
                         isScorePreviewOpen={this.state.isScorePreviewOpen}
                         handleScorePreviewClose={this.handleScorePreviewClose}
-
                         isScoreWarningOpen={this.state.isScoreWarningOpen}
                         handleScoreWarningClose={this.handleScoreWarningClose}
-
                         score={this.state.score}
                         scoreMax={this.state.scoreMax}
-                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scoreDifference={
+                          this.state.scoreMax - this.state.scoreDifference
+                        }
                         scorePreviewMessage={this.state.scorePreviewMessage}
-
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
-
                       />
-                      <MeetTheModels/>
-                      <Footer 
+                      <MeetTheModels />
+                      <Footer
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
@@ -536,24 +522,21 @@ class App extends Component {
                         handleCartClose={this.handleCartClose}
                         updateQuantityInCart={this.updateQuantityInCart}
                         removeLineItemInCart={this.removeLineItemInCart}
-
                         isScorePreviewOpen={this.state.isScorePreviewOpen}
                         handleScorePreviewClose={this.handleScorePreviewClose}
-
                         isScoreWarningOpen={this.state.isScoreWarningOpen}
                         handleScoreWarningClose={this.handleScoreWarningClose}
-
                         score={this.state.score}
                         scoreMax={this.state.scoreMax}
-                        scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                        scoreDifference={
+                          this.state.scoreMax - this.state.scoreDifference
+                        }
                         scorePreviewMessage={this.state.scorePreviewMessage}
-
                         setScorePreviewMessage={this.setScorePreviewMessage}
                         addPointsToScore={this.addPointsToScore}
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
-
                       />
                       <SiteMap />
                       <Footer
@@ -580,49 +563,45 @@ class App extends Component {
                     />
                   )}
                 />
+
+                <Route
+                  render={() => (
+                    <div>
+                      <Header
+                        checkout={this.state.checkout}
+                        isMiniCartOpen={this.state.isCartOpen}
+                        handleCartClose={this.handleCartClose}
+                        updateQuantityInCart={this.updateQuantityInCart}
+                        removeLineItemInCart={this.removeLineItemInCart}
+                        isScorePreviewOpen={this.state.isScorePreviewOpen}
+                        handleScorePreviewClose={this.handleScorePreviewClose}
+                        isScoreWarningOpen={this.state.isScoreWarningOpen}
+                        handleScoreWarningClose={this.handleScoreWarningClose}
+                        score={this.state.score}
+                        scoreMax={this.state.scoreMax}
+                        scoreDifference={
+                          this.state.scoreMax - this.state.scoreDifference
+                        }
+                        scorePreviewMessage={this.state.scorePreviewMessage}
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+                      />
+
+                      <NoMatch />
+                      <Footer
+                        setScorePreviewMessage={this.setScorePreviewMessage}
+                        addPointsToScore={this.addPointsToScore}
+                        setScoreDifference={this.setScoreDifference}
+                        updateGame={this.updateGame}
+                        game={this.state.game}
+                      />
+                    </div>
+                  )}
+                />
               </Switch>
-
-              <Route
-
-                render={() => (
-                  <div>
-                    <Header
-                      checkout={this.state.checkout}
-                      isMiniCartOpen={this.state.isCartOpen}
-                      handleCartClose={this.handleCartClose}
-                      updateQuantityInCart={this.updateQuantityInCart}
-                      removeLineItemInCart={this.removeLineItemInCart}
-
-                      isScorePreviewOpen={this.state.isScorePreviewOpen}
-                      handleScorePreviewClose={this.handleScorePreviewClose}
-
-                      isScoreWarningOpen={this.state.isScoreWarningOpen}
-                      handleScoreWarningClose={this.handleScoreWarningClose}
-
-                      score={this.state.score}
-                      scoreMax={this.state.scoreMax}
-                      scoreDifference={this.state.scoreMax - this.state.scoreDifference}
-                      scorePreviewMessage={this.state.scorePreviewMessage}
-
-                      setScorePreviewMessage={this.setScorePreviewMessage}
-                      addPointsToScore={this.addPointsToScore}
-                      setScoreDifference={this.setScoreDifference}
-                      updateGame={this.updateGame}
-                      game={this.state.game}
-
-                    />
-                    <NoMatch />
-                    <Footer
-                      setScorePreviewMessage={this.setScorePreviewMessage}
-                      addPointsToScore={this.addPointsToScore}
-                      setScoreDifference={this.setScoreDifference}
-                      updateGame={this.updateGame}
-                      game={this.state.game}
-                    />
-                  </div>
-                )}
-              />
-
             </Router>
           </div>
         );
