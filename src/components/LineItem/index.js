@@ -23,15 +23,15 @@ class LineItem extends Component {
     return (
       <li className="LineItem col-12 md:col-8 aesthetic-arizona-lime-bg-color mx2 flex p2">
 
-        <div className="LineItem__img flex items-center justify-center">
+        <div className="LineItem__img col-6 flex items-center justify-center">
 
           {this.props.line_item.variant.image ? <img src={this.props.line_item.variant.image.src} alt={`${this.props.line_item.title} product shot`} class="w100"/> : null}
-        
+
         </div>
 
-        <div className="LineItem__content-row mx2 flex items-center justify-center">
+        <div className="LineItem__content-row col-6 mx2 flex items-center justify-center flex-col">
 
-          <div className="mx2">
+          <div className="m2">
 
             <p className="LineItem__title  text-center  playfair">
               {this.props.line_item.title}
@@ -43,25 +43,25 @@ class LineItem extends Component {
 
           </div>
 
-          <div className="mx2 flex justify-center items-center">
+          <div className="m2 flex justify-center items-center">
 
-            <div className="aesthetic-windows-xp-button">
+            <div className="aesthetic-windows-xp-button mx_5">
 
-              <button className="LineItem__quantity-update  mx_5" onClick={() => this.decrementQuantity(this.props.line_item.id)}>-</button>
+              <button className="LineItem__quantity-update" onClick={() => this.decrementQuantity(this.props.line_item.id)}>-</button>
 
             </div>
-  
+
             <span className="LineItem__quantity">{this.props.line_item.quantity}</span>
 
-            <div className="aesthetic-windows-xp-button">
+            <div className="aesthetic-windows-xp-button mx_5">
 
-              <button className="LineItem__quantity-update mx_5" onClick={() => this.incrementQuantity(this.props.line_item.id)}>+</button>
+              <button className="LineItem__quantity-update" onClick={() => this.incrementQuantity(this.props.line_item.id)}>+</button>
 
             </div>
 
           </div>
 
-          <div className="mx2">
+          <div className="m2">
 
             <p className="LineItem__price flex justify-center items-center">
               <span>$</span> <span>{(this.props.line_item.quantity * this.props.line_item.variant.price).toFixed(2)}</span>

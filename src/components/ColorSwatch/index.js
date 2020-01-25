@@ -8,9 +8,9 @@ class ColorSwatch extends Component {
 
   constructor(props) {
     super(props)
-  
+
     this.state = {
-      color: "",     
+      color: "",
     }
   }
 
@@ -18,16 +18,15 @@ class ColorSwatch extends Component {
 
     for (let color in productColors) {
       var x = this.props.color.toLowerCase().split(' ').join('-').replace('/', '');
-      
+
       if (color === x) {
         this.setState({
           color: productColors[x],
         })
       }
-    }    
+    }
   }
 
-  
   render() {
     const color = this.state.color;
     let bgColor;
