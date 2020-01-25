@@ -135,6 +135,15 @@ class PDP extends Component {
       );
     } else {
       imageMarkup = this.state.variantObjs.map((variant, index) => {
+
+        // const image = {
+        //   backgroundImage: `url(${variant.src})`,
+        //   backgroundPosition: "center",
+        //   backgroundSize: "cover",
+        //   backgroundRepeat: "no-repeat",
+        //   overflow: "hidden"
+        // };
+
         return (
           <div className={
             cx('PDP__hover-image-container w100 h100',
@@ -150,9 +159,14 @@ class PDP extends Component {
 
               <img
                 src={variant.src}
-                alt=""
+                alt={variant.title}
                 className="h100 w100"
               />
+
+              {/* <div
+                style={image}
+                className="h100 w100"
+              ></div> */}
 
             </div>
 
@@ -160,7 +174,7 @@ class PDP extends Component {
         )
       })
     }
-    
+
     let colorSwatchMarkUp;
 
     if (this.props.product.options[0].name === "Color") {
@@ -184,17 +198,17 @@ class PDP extends Component {
                 ></ColorSwatch>
               </div>
             )
-            
+
           })}
         </div>
     } else {
       colorSwatchMarkUp = null;
     }
 
-    let sizeSelectorMarkUp; 
+    let sizeSelectorMarkUp;
 
     if (this.props.product.options[0].name === "Size") {
-      sizeSelectorMarkUp = 
+      sizeSelectorMarkUp =
         <div className="my1">
           <SizeSelector
             clickHandler={this.sizeSelectorClick}
@@ -207,17 +221,12 @@ class PDP extends Component {
 
     return (
       <div className="PDP flex overflow-hidden flex-col lg:flex-row">
-  
-        <div className="col-12 lg:col-5">
-
+        <div className="col-12 lg:col-6 p4 aesthetic-bg-gradient">
           {imageMarkup}
-
         </div>
 
-        <div className="col-12 lg:col-7 flex items-center justify-center flex-col aesthetic-25-transparent-bg-color p2">
-
+        <div className="col-12 lg:col-6 flex items-center justify-center flex-col aesthetic-25-transparent-bg-color p4">
           <div className="aesthetic-75-transparent-bg-color p2 flex items-center justify-center flex-col">
-
             <h2
               className="PDP__product-title  true-sketch-rg  aesthetic-font-modifier-outline-purple  aesthetic-effect-text-glitch"
               data-glitch={this.props.product.title}
@@ -225,11 +234,9 @@ class PDP extends Component {
               {this.props.product.title}
             </h2>
 
-            <h4
-              className="PDP__product-price  true-sketch-rg  aesthetic-font-modifier-outline-purple my1"
-            > 
-              {/* the price is stored in the variant */}
-              ${this.props.product.variants[0].price}
+            <h4 className="PDP__product-price  true-sketch-rg  aesthetic-font-modifier-outline-purple my1">
+              {/* the price is stored in the variant */}$
+              {this.props.product.variants[0].price}
             </h4>
 
             {colorSwatchMarkUp}
@@ -237,24 +244,27 @@ class PDP extends Component {
             {sizeSelectorMarkUp}
 
             <div className="aesthetic-windows-95-button col-3 my1">
-              <button onClick={() => { 
-                this.props.addToCart(this.state.activeVariantID, 1) 
+              <button
+                onClick={() => {
+                  this.props.addToCart(this.state.activeVariantID, 1);
 
                   // this.props.updateGame(productHandle);
-                  
+
                   if (!this.props.game.includes(productHandle)) {
-                    this.props.setScorePreviewMessage(`hell yeah, you added ${productTitle} to your cart`);
+                    this.props.setScorePreviewMessage(
+                      `hell yeah, you added ${productTitle} to your cart`
+                    );
                     this.props.setScoreDifference(20);
                     this.props.addPointsToScore(20);
                   }
-                
-                }}> place in bag</button>
+                }}
+              >
+                {" "}
+                place in bag
+              </button>
             </div>
-
           </div>
-
         </div>
-
       </div>
     );
   }

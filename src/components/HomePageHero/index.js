@@ -125,19 +125,19 @@ class HomePageHero extends Component {
 
             <div className="aesthetic-windows-xp-modal-content">
               <div className="bg-blue p4">
-                <FeaturedCollection
+                {/* <FeaturedCollection
                   image={this.props.collections[0].image}
                   title={this.props.collections[0].title}
                   linkDestination="totes"
                   bg={
                     "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/rockinwithlights_8.png?20"
                   }
-                />
+                /> */}
 
-                <div className="flex justify-end pt4">
+                <div className=" pt4">
                   <FeaturedCollection
-                    image={this.props.collections[1].image}
-                    title={this.props.collections[1].title}
+                    image={this.props.collections[0].image}
+                    title={this.props.collections[0].title}
                     linkDestination="hats"
                     bg={
                       "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/56_rockingwithlights.png?21"
@@ -145,10 +145,10 @@ class HomePageHero extends Component {
                   />
                 </div>
 
-                <div className="pt4">
+                <div className="flex justify-end pt4">
                   <FeaturedCollection
-                    image={this.props.collections[2].image}
-                    title={this.props.collections[2].title}
+                    image={this.props.collections[1].image}
+                    title={this.props.collections[1].title}
                     linkDestination="accessories"
                     bg={
                       "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/rockinwithlights_8.png?20"

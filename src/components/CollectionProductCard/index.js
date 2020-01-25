@@ -11,7 +11,7 @@ class CollectionProductCard extends Component {
 
   constructor(props) {
     super(props)
-  
+
     this.state = {
       variants: [],
       imageSrcs: [],
@@ -41,14 +41,14 @@ class CollectionProductCard extends Component {
     }
 
     const onLoadVariant = this.props.product.variants[0].id;
-    
+
     this.setState({
       variants: k,
       imageSrcs: j,
       variantObjs: x,
-      activeVariantID: onLoadVariant 
+      activeVariantID: onLoadVariant
     })
-        
+
     if (this.props.product.images.length === (this.props.product.variants.length * 2)) {
       this.setState({
         hasHover: true,
@@ -68,20 +68,26 @@ class CollectionProductCard extends Component {
   renderGalleryRow = (imageGroup, index) => {
     const image1SRC = imageGroup;
 
-    const image2SRC = imageGroup[1];    
+    const image2SRC = imageGroup[1];
+
+    console.log(imageGroup);
+
+    console.log(this.state);
+
+    console.log(index);
 
     const variantColor = this.state.variantObjs[index].title.toLowerCase().replace(' ', '-');
     const variantID = this.state.variantObjs[index].id;
 
       return (
-        
+
         <div className={
           cx('CollectionProductCard__hover-image-container w100 h100',
             {
               'none': variantID !== this.state.activeVariantID
-            }, 
-            { 
-              'block': variantID === this.state.activeVariantID 
+            },
+            {
+              'block': variantID === this.state.activeVariantID
           })
         } data-color={variantColor} key={variantID}>
 
@@ -93,7 +99,7 @@ class CollectionProductCard extends Component {
               className="CollectionProductCard__overlay flex justify-center items-center absolute l0 t0 r0 b0 h100 w100"
             />
 
-            <img           
+            <img
               src={image2SRC}
               alt=""
               className="CollectionProductCard__top flex justify-center items-center h100 w100"
@@ -104,7 +110,7 @@ class CollectionProductCard extends Component {
         </div>
       );
   };
-  
+
   render() {
 
     const images = this.state.imageSrcs;
@@ -118,6 +124,8 @@ class CollectionProductCard extends Component {
     );
 
     let imageMarkup;
+
+    console.log(this.state.hasHover);
 
     if (this.state.hasHover) {
       imageMarkup = imageMatrix.map((imageGroup, index) =>
@@ -178,18 +186,18 @@ class CollectionProductCard extends Component {
     let sizeSelectorMarkup;
 
     if (this.props.product.variants.length > 1 && this.props.product.options[0].name === 'Size') {
-      sizeSelectorMarkup = 
-        <div> 
+      sizeSelectorMarkup =
+        <div>
           <SizeSelector
             variants={this.state.variantObjs}
-          ></SizeSelector> 
+          ></SizeSelector>
         </div>
     } else {
       sizeSelectorMarkup = null;
     }
 
     return (
-      <div className="CollectionProductCard col-12 md:col-4 aesthetic-windows-95-green-bg-color mx2 flex flex-col">
+      <div className="CollectionProductCard p2 col-12 md:col-4 aesthetic-windows-95-green-bg-color mx2 flex flex-col">
         <Link to={`/${this.props.product.handle}`} className="h100 w100 block">
 
           <div className="flex flex-col justify-center items-center">
@@ -213,7 +221,7 @@ class CollectionProductCard extends Component {
           <ul>
             {sizeSelectorMarkup}
           </ul>
-        </div> 
+        </div>
 
       </div>
     );

@@ -27,7 +27,7 @@ class App extends Component {
       checkout: { lineItems: [] },
       products: [],
       shop: {},
-      featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM5OTU3MzUxOTU3NDc=",
+      // featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM5OTU3MzUxOTU3NDc=",
       featuredProduct: undefined,
       collections: [],
       score: 0,
@@ -69,11 +69,11 @@ class App extends Component {
         });
       });
     }).then(() => {
-      this.props.client.product.fetch(this.state.featuredProductId).then((product) => {
-        this.setState({
-          featuredProduct: product,
-        });
-      })
+      // this.props.client.product.fetch(this.state.featuredProductId).then((product) => {
+      //   this.setState({
+      //     featuredProduct: product,
+      //   });
+      // })
     }).then(() => {
       this.props.client.collection.fetchAllWithProducts().then((collections) => {
 
@@ -201,10 +201,10 @@ class App extends Component {
     });
   }
 
-  render() {
 
+  render() {
     const productRoutes = this.state.products.map((product, key) => {
-    const handle = `/${product.handle}`
+      const handle = `/${product.handle}`;
       if (product.handle !== 'secret-gift' ) {
         return (
           <Route
@@ -316,7 +316,7 @@ class App extends Component {
       )
     })
 
-    if (this.state.featuredProduct === undefined || !this.state.collections.length || !this.state.products.length) {
+    if (!this.state.collections.length || !this.state.products.length) {
 
       const loadingStyle = {
         height: '100vh',
@@ -368,7 +368,7 @@ class App extends Component {
                       <HomePageHero
                         addVariantToCart={this.addVariantToCart}
                         client={this.props.client}
-                        key={this.state.featuredProduct.id}
+                        // key={this.state.featuredProduct.id}
                         product={this.state.featuredProduct}
                         collections={this.state.collections}
                         addToCart={this.addVariantToCart}
@@ -432,6 +432,7 @@ class App extends Component {
                     </div>
                   )}
                 />
+
 
                 <Route
                   exact
