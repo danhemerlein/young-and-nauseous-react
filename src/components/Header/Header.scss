@@ -2,12 +2,14 @@
 
 .Header {
 
-  &__mini-cart {
+  &__mini-cart,
+  &__score-warning,
+  &__mobile-nav {
     z-index: 5;
     transform: translateX(100%);
     transition: transform 1s ease-in-out;
     position: absolute;
-    
+
     &--active {
       transform: translateX(0);
       position: fixed;
@@ -19,23 +21,10 @@
     transform: translateX(-100%);
     transition: transform 1s ease-in-out;
     position: absolute;
-    
+
     &--active {
       transform: translateX(0);
       position: fixed;
     }
   }
-
-  &__score-warning {
-    z-index: 5;
-    transform: translateX(100%);
-    transition: transform 1s ease-in-out;
-    position: absolute;
-    
-    &--active {
-      transform: translateX(0);
-      position: fixed;
-    }
-  }
-
 }

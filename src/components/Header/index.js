@@ -1,17 +1,22 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import cx from 'classnames';
+import React, { Component }     from 'react';
+import { Link }                 from "react-router-dom";
+import cx                       from 'classnames';
 
-import Marquee from "../Marquee/";
-import MiniCart from "../MiniCart/";
-import ScorePreview from "../ScorePreview/";
-import ScoreWarning from "../ScoreWarning/";
-import DesktopHeaderNav from "../Navigation/DesktopHeaderNav";
-import MobileHeaderNav from "../Navigation/MobileHeaderNav";
+import Marquee                  from "../Marquee/";
+import MiniCart                 from "../MiniCart/";
+import ScorePreview             from "../ScorePreview/";
+import ScoreWarning             from "../ScoreWarning/";
+import DesktopHeaderNav         from "../Navigation/DesktopHeaderNav";
+import MobileHeaderNav          from "../Navigation/MobileHeaderNav";
+import HamburgerMenu            from "../Navigation/HamburgerMenu";
 
 import './Header.scss'
 
 class Header extends Component {
+  componentDidMount() {
+    console.log(this.props)
+  }
+
 
   render() {
 
@@ -38,13 +43,24 @@ class Header extends Component {
             game={this.props.game}
           />
 
-          <MobileHeaderNav
-            setScorePreviewMessage={this.props.setScorePreviewMessage}
-            addPointsToScore={this.props.addPointsToScore}
-            setScoreDifference={this.props.setScoreDifference}
-            updateGame={this.props.updateGame}
-            game={this.props.game}
-          />
+          <HamburgerMenu
+            toggleMobileNav={this.props.toggleMobileNav}
+            isMobileNavOpen={this.props.isMobileNavOpen}
+          ></HamburgerMenu>
+
+          <div
+            className={cx("Header__mobile-nav r0", {
+              "Header__mobile-nav--active": this.props.isMiniCartOpen
+            })}
+          >
+            <MobileHeaderNav
+              setScorePreviewMessage={this.props.setScorePreviewMessage}
+              addPointsToScore={this.props.addPointsToScore}
+              setScoreDifference={this.props.setScoreDifference}
+              updateGame={this.props.updateGame}
+              game={this.props.game}
+            />
+          </div>
         </div>
 
         <div

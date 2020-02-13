@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component }                       from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Cart from './components/Cart/';
-import HomePageHero from './components/HomePageHero/';
-import Header from './components/Header/';
-import Footer from './components/Footer/';
-import AboutPage from './components/Pages/AboutPage';
-import CollectionPage from './components/CollectionPage/';
-import PDP from './components/PDP/';
-import Collections from './components/Collections/';
-import MeetTheModels from './components/Pages/MeetTheModels';
-import SiteMap from './components/Pages/SiteMap';
-import NoMatch from './components/Pages/NoMatch';
+import Cart                                       from './components/Cart/';
+import HomePageHero                               from './components/HomePageHero/';
+import Header                                     from './components/Header/';
+import Footer                                     from './components/Footer/';
+import AboutPage                                  from './components/Pages/AboutPage';
+import CollectionPage                             from './components/CollectionPage/';
+import PDP                                        from './components/PDP/';
+import Collections                                from './components/Collections/';
+import MeetTheModels                              from './components/Pages/MeetTheModels';
+import SiteMap                                    from './components/Pages/SiteMap';
+import NoMatch                                    from './components/Pages/NoMatch';
 
 import './App.scss'
 import './styles/app.scss';
@@ -21,21 +21,22 @@ class App extends Component {
     super();
 
     this.state = {
-      isCartOpen: false,
-      isScorePreviewOpen: false,
-      isScoreWarningOpen: false,
-      checkout: { lineItems: [] },
-      products: [],
-      shop: {},
+      isCartOpen:           false,
+      isScorePreviewOpen:   false,
+      isScoreWarningOpen:   false,
+      checkout:             { lineItems: [] },
+      products:             [],
+      shop:                 {},
       // featuredProductId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzM5OTU3MzUxOTU3NDc=",
-      featuredProduct: undefined,
-      collections: [],
-      score: 0,
-      scoreMax: 100,
-      scoreDifference: 0,
-      scorePreviewMessage: null,
-      game: [],
-      gameComplete: false,
+      featuredProduct:      undefined,
+      collections:          [],
+      score:                0,
+      scoreMax:             100,
+      scoreDifference:      0,
+      scorePreviewMessage:  null,
+      game:                 [],
+      gameComplete:         false,
+      isMobileNavOpen:      false,
     };
 
     this.handleCartClose              = this.handleCartClose.bind(this);
@@ -49,6 +50,7 @@ class App extends Component {
     this.updateGame                   = this.updateGame.bind(this);
     this.openScoreWarning             = this.openScoreWarning.bind(this);
     this.handleScoreWarningClose      = this.handleScoreWarningClose.bind(this);
+    this.toggleMobileNav              = this.toggleMobileNav.bind(this);
   }
 
   componentDidMount() {
@@ -201,9 +203,18 @@ class App extends Component {
     });
   }
 
+  toggleMobileNav() {
+    this.setState({
+      isMobileNavOpen: !this.state.isMobileNavOpen,
+    });
+
+    console.log(this.state.isMobileNavOpen);
+  }
+
+
 
   render() {
-    const productRoutes = this.state.products.map((product, key) => {
+      const productRoutes = this.state.products.map((product, key) => {
       const handle = `/${product.handle}`;
       if (product.handle !== 'secret-gift' ) {
         return (
@@ -219,31 +230,28 @@ class App extends Component {
                   handleCartClose={this.handleCartClose}
                   updateQuantityInCart={this.updateQuantityInCart}
                   removeLineItemInCart={this.removeLineItemInCart}
-
                   cartQty={this.state.checkout.lineItems.length}
-
                   isScorePreviewOpen={this.state.isScorePreviewOpen}
                   handleScorePreviewClose={this.handleScorePreviewClose}
-
                   isScoreWarningOpen={this.state.isScoreWarningOpen}
                   handleScoreWarningClose={this.handleScoreWarningClose}
-
                   score={this.state.score}
                   scoreMax={this.state.scoreMax}
-                  scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                  scoreDifference={
+                    this.state.scoreMax - this.state.scoreDifference
+                  }
                   scorePreviewMessage={this.state.scorePreviewMessage}
-
                   setScorePreviewMessage={this.setScorePreviewMessage}
                   addPointsToScore={this.addPointsToScore}
                   setScoreDifference={this.setScoreDifference}
                   updateGame={this.updateGame}
                   game={this.state.game}
-
+                  isMobileNavOpen={this.state.isMobileNavOpen}
+                  toggleMobileNav={this.toggleMobileNav}
                 />
                 <PDP
                   product={this.state.products[key]}
                   addToCart={this.addVariantToCart}
-
                   setScorePreviewMessage={this.setScorePreviewMessage}
                   addPointsToScore={this.addPointsToScore}
                   setScoreDifference={this.setScoreDifference}
@@ -259,8 +267,8 @@ class App extends Component {
                 />
               </div>
             )}
-            />
-          )
+          />
+        );
         }
       });
 
@@ -280,24 +288,23 @@ class App extends Component {
                 updateQuantityInCart={this.updateQuantityInCart}
                 removeLineItemInCart={this.removeLineItemInCart}
                 cartQty={this.state.checkout.lineItems.length}
-
                 isScorePreviewOpen={this.state.isScorePreviewOpen}
                 handleScorePreviewClose={this.handleScorePreviewClose}
-
                 isScoreWarningOpen={this.state.isScoreWarningOpen}
                 handleScoreWarningClose={this.handleScoreWarningClose}
-
                 score={this.state.score}
                 scoreMax={this.state.scoreMax}
-                scoreDifference={this.state.scoreMax - this.state.scoreDifference}
+                scoreDifference={
+                  this.state.scoreMax - this.state.scoreDifference
+                }
                 scorePreviewMessage={this.state.scorePreviewMessage}
-
                 setScorePreviewMessage={this.setScorePreviewMessage}
                 addPointsToScore={this.addPointsToScore}
                 setScoreDifference={this.setScoreDifference}
                 updateGame={this.updateGame}
                 game={this.state.game}
-
+                isMobileNavOpen={this.state.isMobileNavOpen}
+                toggleMobileNav={this.toggleMobileNav}
               />
               <CollectionPage
                 products={this.state.collections[key]}
@@ -313,7 +320,7 @@ class App extends Component {
             </div>
           )}
         />
-      )
+      );
     })
 
     if (!this.state.collections.length || !this.state.products.length) {
@@ -364,6 +371,8 @@ class App extends Component {
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
+                        isMobileNavOpen={this.state.isMobileNavOpen}
+                        toggleMobileNav={this.toggleMobileNav}
                       />
                       <HomePageHero
                         addVariantToCart={this.addVariantToCart}
@@ -432,7 +441,6 @@ class App extends Component {
                     </div>
                   )}
                 />
-
 
                 <Route
                   exact

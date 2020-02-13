@@ -6,7 +6,11 @@ import "./MobileHeaderNav.scss";
 class MobileHeaderNav extends Component {
   render() {
     return (
-      <div className="col-9 flex md:none items-end justify-end pr1">
+      <div
+        className={`MobileHeaderNav flex flex-col items-center justify-center playfair p1 aesthetic-pepsi-blue-bg-color ${
+          this.props.isCartOpen ? "MobileHeaderNav--open" : ""
+        }`}
+      >
         <Link to="/bag">
           <div className="aesthetic-windows-95-tabbed-container-tabs-button is-active mx1">
             <button>Bag</button>
