@@ -214,8 +214,6 @@ class App extends Component {
     this.setState({
       isMobileNavOpen: !this.state.isMobileNavOpen,
     });
-
-    console.log(this.state.isMobileNavOpen);
   }
 
 

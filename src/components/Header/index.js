@@ -96,11 +96,11 @@ class Header extends Component {
             "Header__score-warning--active": this.props.isScoreWarningOpen
           })}
         >
-          <ScoreWarning
+          {/* <ScoreWarning
             handleScoreWarningClose={this.props.handleScoreWarningClose}
             scoreWarningMessage={this.props.scoreWarningMessage}
             score={this.props.score}
-          ></ScoreWarning>
+          ></ScoreWarning> */}
         </div>
       </div>
     );

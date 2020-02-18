@@ -17,6 +17,7 @@ class PDP extends Component {
       variantObjs: [],
       hasHover: false,
       activeVariantID: '',
+      availableOptions: []
     }
   }
 
@@ -24,6 +25,11 @@ class PDP extends Component {
     let k = [];
     let j = [];
     let x = [];
+    let y = [];
+
+    for (let option of this.props.product.options) {
+      y.push(option.name);
+    }
 
     for (let variant of this.props.product.variants) {
       k.push(variant);
@@ -45,8 +51,9 @@ class PDP extends Component {
       variants: k,
       imageSrcs: j,
       variantObjs: x,
-      activeVariantID: onLoadVariant
-    })
+      activeVariantID: onLoadVariant,
+      availableOptions: y,
+    });
 
     if (this.props.product.images.length === (this.props.product.variants.length * 2)) {
       this.setState({
@@ -115,6 +122,12 @@ class PDP extends Component {
 
   render() {
 
+    console.log('PDP state', this.state);
+
+    console.log('PDP product props', this.props.product);
+
+    console.log('PDP product props options', this.props.product.options);
+
     const images = this.state.imageSrcs;
     const productHandle = this.props.product.handle;
     const productTitle= this.props.product.title;
@@ -180,7 +193,6 @@ class PDP extends Component {
     if (this.props.product.options[0].name === "Color") {
 
       colorSwatchMarkUp =
-
         <div className="flex flex items-center justify-center my1">
           {this.state.variants.map((variant, key) => {
             let active = false
@@ -207,14 +219,18 @@ class PDP extends Component {
 
     let sizeSelectorMarkUp;
 
-    if (this.props.product.options[0].name === "Size") {
-      sizeSelectorMarkUp =
+    if (
+      this.props.product.options[0].name === "Size" ||
+      this.props.product.options[1].name === "Size"
+    ) {
+      sizeSelectorMarkUp = (
         <div className="my1">
           <SizeSelector
             clickHandler={this.sizeSelectorClick}
             variants={this.state.variantObjs}
           ></SizeSelector>
         </div>
+      );
     } else {
       sizeSelectorMarkUp = null;
     }
@@ -225,7 +241,7 @@ class PDP extends Component {
           {imageMarkup}
         </div>
 
-        <div className="col-12 lg:col-6 flex items-center justify-center flex-col aesthetic-25-transparent-bg-color p4">
+        <div className="col-12 lg:col-6 flex items-center justify-center flex-col aesthetic-25-transparent-bg-color p0 md:p4">
           <div className="aesthetic-75-transparent-bg-color p2 flex items-center justify-center flex-col">
             <h2
               className="PDP__product-title  true-sketch-rg  aesthetic-font-modifier-outline-purple  aesthetic-effect-text-glitch"
