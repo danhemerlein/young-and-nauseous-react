@@ -1,0 +1,21 @@
+
+/*------------------------------------*\
+  #COMMON-BP
+\*------------------------------------*/
+
+@mixin common-bp($point) {
+
+	@media #{map-get($common-media-queries, $point)}{
+		@content;
+	}
+}
+
+/*------------------------------------*\
+  #TYPE-SIZE
+\*------------------------------------*/
+
+@each $font-size, $value in $font-size {
+  .font-size-#{$font-size} {
+    font-size: $value;
+  }
+}

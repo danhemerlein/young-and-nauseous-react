@@ -124,7 +124,7 @@ class HomePageHero extends Component {
             </div>
 
             <div className="aesthetic-windows-xp-modal-content">
-              <div className="bg-blue p4">
+              <div className="bg-blue p2 md:p4">
                 {/* <FeaturedCollection
                   image={this.props.collections[0].image}
                   title={this.props.collections[0].title}
@@ -134,7 +134,7 @@ class HomePageHero extends Component {
                   }
                 /> */}
 
-                <div className=" pt4">
+                <div className="pt0 md:pt4">
                   <FeaturedCollection
                     image={this.props.collections[0].image}
                     title={this.props.collections[0].title}
@@ -194,7 +194,7 @@ class HomePageHero extends Component {
             </div>
 
             <div className="aesthetic-windows-95-modal-content">
-              <div className="bg-blue p4">
+              <div className="bg-blue p2 md:p4">
                 <HomePageContent
                   image={
                     "https://cdn.shopify.com/s/files/1/0269/5793/8787/files/dan-minikit_825527dc-778a-4546-9eca-2bdd64629640.jpg?25"

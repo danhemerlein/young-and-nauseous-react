@@ -7,8 +7,14 @@
     max-width: 40rem;
   }
 
+
   &__featured-collection-container {
-    max-width: 75%;
+
+    max-width: 100%;
+
+    @include common-bp(desktop) {
+      max-width: 75%;
+    }
   }
-  
+
 }
