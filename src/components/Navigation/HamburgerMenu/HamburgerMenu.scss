@@ -1,16 +1,19 @@
 @import "../../../styles/app.scss";
 
-$bar-width: 100px;
-$bar-height: 10px;
-$bar-spacing: 25px;
+$bar-width: 50px;
+$bar-height: 5px;
+$bar-spacing: 15px;
 
 .HamburgerMenu {
   margin: auto;
   width: $bar-width;
   height: $bar-height + $bar-spacing * 2;
   background: transparent;
-  padding: 0;
   border: 0;
+  top: 2rem;
+  right: 1rem;
+  transform: translateX(0);
+  transition: transform 1s ease-in-out;
 
   &__menu,
   &__menu:after,
@@ -21,7 +24,7 @@ $bar-spacing: 25px;
 
   &__menu {
   position: relative;
-  transform: translateY($bar-spacing);
+  // transform: translateY($bar-spacing);
   background: rgba(255, 255, 255, 1);
   transition: all 0ms 300ms;
 
@@ -62,5 +65,10 @@ $bar-spacing: 25px;
       transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1),
       transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
     }
+  }
+
+  &__open {
+    transform: translateX(-290px);
+    z-index: 5;
   }
 }

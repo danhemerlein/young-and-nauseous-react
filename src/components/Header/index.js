@@ -17,7 +17,6 @@ class Header extends Component {
     console.log(this.props)
   }
 
-
   render() {
 
     return (
@@ -50,10 +49,11 @@ class Header extends Component {
 
           <div
             className={cx("Header__mobile-nav r0", {
-              "Header__mobile-nav--active": this.props.isMiniCartOpen
+              "Header__mobile-nav--active": this.props.isMobileNavOpen
             })}
           >
             <MobileHeaderNav
+              toggleMobileNav={this.props.toggleMobileNav}
               setScorePreviewMessage={this.props.setScorePreviewMessage}
               addPointsToScore={this.props.addPointsToScore}
               setScoreDifference={this.props.setScoreDifference}

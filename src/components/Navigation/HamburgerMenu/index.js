@@ -17,14 +17,15 @@ class HamburgerMenu extends Component {
     return (
       <button
         onClick={this.props.toggleMobileNav}
-        className={cx("HamburgerMenu pointer absolute md:none block r0 b0 t0")}>
+        className={cx(
+          "HamburgerMenu pointer absolute md:none block b0 my0 p0", {
+            "HamburgerMenu__open": this.props.isMobileNavOpen
+          })}
+        >
         <div
-          className={cx(
-            "HamburgerMenu__menu",
-            {
-              animate: this.props.isMobileNavOpen
-            }
-          )}
+          className={cx("HamburgerMenu__menu", {
+            animate: this.props.isMobileNavOpen
+          })}
         ></div>
       </button>
     );

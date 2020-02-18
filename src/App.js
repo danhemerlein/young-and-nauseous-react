@@ -1,6 +1,12 @@
+
+// react
 import React, { Component }                       from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+// other
+import cx                                         from "classnames";
+
+// components
 import Cart                                       from './components/Cart/';
 import HomePageHero                               from './components/HomePageHero/';
 import Header                                     from './components/Header/';
@@ -13,6 +19,7 @@ import MeetTheModels                              from './components/Pages/MeetT
 import SiteMap                                    from './components/Pages/SiteMap';
 import NoMatch                                    from './components/Pages/NoMatch';
 
+// styles
 import './App.scss'
 import './styles/app.scss';
 
@@ -341,6 +348,12 @@ class App extends Component {
         return (
           <div className="App">
             <header className="App__header"></header>
+            <div
+              onClick={this.toggleMobileNav}
+              className={cx("App__mobile-nav-overlay p0 m0", {
+                "App__mobile-nav-overlay--active": this.state.isMobileNavOpen
+              })}
+            ></div>
 
             <Router>
               <Switch>
@@ -429,6 +442,8 @@ class App extends Component {
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
+                        isMobileNavOpen={this.state.isMobileNavOpen}
+                        toggleMobileNav={this.toggleMobileNav}
                       />
                       <AboutPage />
                       <Footer
@@ -468,6 +483,8 @@ class App extends Component {
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
+                        isMobileNavOpen={this.state.isMobileNavOpen}
+                        toggleMobileNav={this.toggleMobileNav}
                       />
                       <Collections collections={this.state.collections} />
                       <Footer
@@ -507,6 +524,8 @@ class App extends Component {
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
+                        isMobileNavOpen={this.state.isMobileNavOpen}
+                        toggleMobileNav={this.toggleMobileNav}
                       />
                       <MeetTheModels />
                       <Footer
@@ -546,6 +565,8 @@ class App extends Component {
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
+                        isMobileNavOpen={this.state.isMobileNavOpen}
+                        toggleMobileNav={this.toggleMobileNav}
                       />
                       <SiteMap />
                       <Footer
@@ -597,6 +618,8 @@ class App extends Component {
                         setScoreDifference={this.setScoreDifference}
                         updateGame={this.updateGame}
                         game={this.state.game}
+                        isMobileNavOpen={this.state.isMobileNavOpen}
+                        toggleMobileNav={this.toggleMobileNav}
                       />
 
                       <NoMatch />
