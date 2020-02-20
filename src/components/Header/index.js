@@ -13,9 +13,6 @@ import HamburgerMenu            from "../Navigation/HamburgerMenu";
 import './Header.scss'
 
 class Header extends Component {
-  componentDidMount() {
-    console.log(this.props)
-  }
 
   render() {
 

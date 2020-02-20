@@ -70,12 +70,6 @@ class CollectionProductCard extends Component {
 
     const image2SRC = imageGroup[1];
 
-    console.log(imageGroup);
-
-    console.log(this.state);
-
-    console.log(index);
-
     const variantColor = this.state.variantObjs[index].title.toLowerCase().replace(' ', '-');
     const variantID = this.state.variantObjs[index].id;
 

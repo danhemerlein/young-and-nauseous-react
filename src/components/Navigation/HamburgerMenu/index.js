@@ -1,18 +1,11 @@
 import React, { Component } from "react";
 import cx from "classnames";
 
-
 import "./HamburgerMenu.scss";
 
 class HamburgerMenu extends Component {
 
-  componentDidMount () {
-      console.log(this.props)
-
-  }
-
   render() {
-
 
     return (
       <button

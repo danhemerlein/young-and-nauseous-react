@@ -16,15 +16,30 @@ class ColorSwatch extends Component {
 
   componentDidMount() {
 
-    for (let color in productColors) {
-      var x = this.props.color.toLowerCase().split(' ').join('-').replace('/', '');
+    if (this.props.productTitle !== 'Unisex Sweatshirt') {
+      for (let color in productColors) {
+        var x = this.props.color.toLowerCase().split(' ').join('-').replace('/', '');
+        if (color === x) {
+          this.setState({
+            color: productColors[x],
+          })
+        }
+      }
+    } else {
+       for (let color in productColors) {
+        // refactor this
 
-      if (color === x) {
-        this.setState({
-          color: productColors[x],
-        })
+        var y = this.props.color.toLowerCase().split(' ').join('-').replace('/',
+        '').split('--')[0];
+
+        if (color === y) {
+          this.setState({
+            color: productColors[y],
+          })
+        }
       }
     }
+
   }
 
   render() {
@@ -44,7 +59,10 @@ class ColorSwatch extends Component {
 
 
     return (
-      <div className="ColorSwatch pointer" onClick={() => {this.props.clickHandler(this.props.id)}} style={bgColor}></div>
+      <div
+        className="ColorSwatch pointer"
+        onClick={() => {this.props.clickHandler(this.props.id)}} style={bgColor}>
+      </div>
     );
   }
 }

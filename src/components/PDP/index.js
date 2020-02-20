@@ -17,7 +17,9 @@ class PDP extends Component {
       variantObjs: [],
       hasHover: false,
       activeVariantID: '',
-      availableOptions: []
+      activeColor: '',
+      availableOptions: [],
+      availableColors: []
     }
   }
 
@@ -26,6 +28,7 @@ class PDP extends Component {
     let j = [];
     let x = [];
     let y = [];
+    let z = [];
 
     for (let option of this.props.product.options) {
       y.push(option.name);
@@ -41,18 +44,27 @@ class PDP extends Component {
       x.push(y);
     }
 
+    for (let variant of this.props.product.variants) {
+      z.push(variant.title.split(" / ")[0]);
+    }
+
+    const uz = [...new Set(z)];
+
     for (let imageGraphModel of this.props.product.images) {
       j.push(imageGraphModel.src)
     }
 
-    const onLoadVariant = this.props.product.variants[0].id;
+    let onLoadColor = this.props.product.variants[0].title.split(' / ')[0];
+    let onLoadVariant = this.props.product.variants[0].id;
 
     this.setState({
       variants: k,
       imageSrcs: j,
       variantObjs: x,
       activeVariantID: onLoadVariant,
+      activeColor: onLoadColor,
       availableOptions: y,
+      availableColors: uz,
     });
 
     if (this.props.product.images.length === (this.props.product.variants.length * 2)) {
@@ -60,7 +72,6 @@ class PDP extends Component {
         hasHover: true,
       })
     }
-
   }
 
   colorSwatchClick = (str) => {
@@ -121,12 +132,6 @@ class PDP extends Component {
   };
 
   render() {
-
-    console.log('PDP state', this.state);
-
-    console.log('PDP product props', this.props.product);
-
-    console.log('PDP product props options', this.props.product.options);
 
     const images = this.state.imageSrcs;
     const productHandle = this.props.product.handle;
@@ -190,22 +195,23 @@ class PDP extends Component {
 
     let colorSwatchMarkUp;
 
-    if (this.props.product.options[0].name === "Color") {
+    if (this.state.availableOptions.includes('Color')) {
 
       colorSwatchMarkUp =
         <div className="flex flex items-center justify-center my1">
-          {this.state.variants.map((variant, key) => {
+          {this.state.availableColors.map((color, key) => {
             let active = false
-            if (variant.id === this.state.activeVariantID) {
+
+            if (color === this.state.activeColor) {
               active = true;
             }
 
             return (
-              <div className="mx_5" key={key}>
-                <ColorSwatch
+              <div className="mx_5 color-white" key={key}>
+               <ColorSwatch
                   clickHandler={this.colorSwatchClick}
-                  id={variant.id}
-                  color={variant.title}
+                  productTitle={this.props.product.title}
+                  color={color}
                   active={active}
                 ></ColorSwatch>
               </div>
@@ -220,8 +226,7 @@ class PDP extends Component {
     let sizeSelectorMarkUp;
 
     if (
-      this.props.product.options[0].name === "Size" ||
-      this.props.product.options[1].name === "Size"
+      this.state.availableOptions.includes('Size')
     ) {
       sizeSelectorMarkUp = (
         <div className="my1">
