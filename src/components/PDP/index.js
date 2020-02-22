@@ -118,13 +118,9 @@ class PDP extends Component {
     //   activeVariantID: str,
     // })
 
-    console.log(str);
-
     this.setState({
       activeColor: str,
     })
-
-    console.log(this.state);
   }
 
   sizeSelectorClick = (str) => {
@@ -178,8 +174,6 @@ class PDP extends Component {
   };
 
   render() {
-
-    console.log(this.state.activeColor);
 
     const images = this.state.imageSrcs;
     const productHandle = this.props.product.handle;
@@ -242,17 +236,6 @@ class PDP extends Component {
 
         } else {
           dataColor = variant.title.toLowerCase().replace(' / ', '-')
-        }
-
-        console.log(dataColor)
-        console.log(colorsRendered);
-
-         if (
-           !colorsRendered.includes(dataColor) &&
-           this.state.availableOptions.includes("Color")
-         ) {
-
-        } else {
           return null;
         }
 
@@ -266,9 +249,12 @@ class PDP extends Component {
       colorSwatchMarkUp =
         <div className="flex flex items-center justify-center my1">
           {this.state.availableColors.map((color, key) => {
-            let active = false
+            let active = false;
 
-            if (color === this.state.activeColor) {
+            if (
+              color.toLowerCase().replace(' ', '-') ===
+              this.state.activeColor
+            ) {
               active = true;
             }
 
