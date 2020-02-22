@@ -12,82 +12,126 @@ class PDP extends Component {
     super(props)
 
     this.state = {
-      variants: [],
-      imageSrcs: [],
-      variantObjs: [],
-      hasHover: false,
-      activeVariantID: '',
-      activeColor: '',
-      availableOptions: [],
-      availableColors: []
+      variants:                [],
+      imageSrcs:               [],
+      variantObjs:             [],
+      hasHover:                false,
+      activeVariantID:         '',
+      activeColor:             '',
+      activeSize:              '',
+      availableOptions:        [],
+      availableColors:         [],
+      availableSizes:          [],
+      productWithColorAndSize: false,
     }
   }
 
   componentDidMount() {
-    let k = [];
-    let j = [];
-    let x = [];
-    let y = [];
-    let z = [];
+    let imageSrcs =         [];
+    let variants =          [];
+    let variantObjs =       [];
+    let availableOptions =  [];
+    let avaialableColors =  [];
+    let availableSizes =    [];
 
     for (let option of this.props.product.options) {
-      y.push(option.name);
+      availableOptions.push(option.name);
     }
 
     for (let variant of this.props.product.variants) {
-      k.push(variant);
-      let y = {
+      variants.push(variant);
+      let variantObj = {
         title: variant.title,
         src: variant.image.src,
         id: variant.id
       }
-      x.push(y);
+      variantObjs.push(variantObj);
+
+      // if the product has two options, color and size
+      if (availableOptions.length > 1 ) {
+        // color
+        avaialableColors.push(variant.title.split(" / ")[0]);
+        // size
+        availableSizes.push(variant.title.split(" / ")[1]);
+
+        this.setState({
+          productWithColorAndSize: true,
+        })
+      }
     }
 
-    for (let variant of this.props.product.variants) {
-      z.push(variant.title.split(" / ")[0]);
-    }
-
-    const uz = [...new Set(z)];
+    const uz = [...new Set(avaialableColors)];
+    const ul = [...new Set(availableSizes)];
 
     for (let imageGraphModel of this.props.product.images) {
-      j.push(imageGraphModel.src)
+      imageSrcs.push(imageGraphModel.src)
     }
 
     let onLoadColor = this.props.product.variants[0].title.split(' / ')[0];
-    let onLoadVariant = this.props.product.variants[0].id;
+
+    let onLoadSize = this.props.product.variants[0].title.split(' / ')[1];
+
+    let onLoadVariant;
+
+    // if the product has two options, color and size
+    if (availableOptions.length > 1 ) {
+      for (let obj of variantObjs) {
+        if (obj.title === onLoadColor + " / " + onLoadSize) {
+            onLoadVariant = obj.id;
+        }
+      }
+    } else {
+      onLoadVariant = this.props.product.variants[0].id;
+    }
 
     this.setState({
-      variants: k,
-      imageSrcs: j,
-      variantObjs: x,
-      activeVariantID: onLoadVariant,
-      activeColor: onLoadColor,
-      availableOptions: y,
-      availableColors: uz,
+      variants:           variants,
+      imageSrcs:          imageSrcs,
+      variantObjs:        variantObjs,
+      activeVariantID:    onLoadVariant,
+      activeColor:        onLoadColor.toLowerCase(),
+      activeSize:         onLoadSize.toLowerCase(),
+      availableOptions:   availableOptions,
+      availableColors:    uz,
+      availableSizes:     ul,
     });
 
-    if (this.props.product.images.length === (this.props.product.variants.length * 2)) {
+    if (
+      this.props.product.images.length ===
+      (this.props.product.variants.length * 2)
+    ) {
       this.setState({
         hasHover: true,
       })
     }
   }
 
+  setActiveVariant = (id) => {
+    this.setState({
+      activeVariantID: id
+    });
+  }
+
   colorSwatchClick = (str) => {
+    // make this only update the color, not the whole variant by ID
+    // this.setState({
+    //   activeVariantID: str,
+    // })
+
+    console.log(str);
 
     this.setState({
-      activeVariantID: str,
+      activeColor: str,
     })
 
+    console.log(this.state);
   }
 
   sizeSelectorClick = (str) => {
-
+    // make this only update the size, not the whole variant by ID
     this.setState({
       activeVariantID: str,
     })
-
   }
 
   renderGalleryRow = (imageGroup, index) => {
@@ -95,7 +139,8 @@ class PDP extends Component {
 
     const image2SRC = imageGroup[1];
 
-    const variantTitle = this.state.variantObjs[index].title.toLowerCase().replace(' ', '-');
+    const variantTitle = this.state.variantObjs[index].title
+    .toLowerCase().replace(' ', '-');
 
     const variantID = this.state.variantObjs[index].id;
 
@@ -116,7 +161,8 @@ class PDP extends Component {
           <img
             src={image1SRC}
             alt=""
-            className="PDP__overlay flex justify-center items-center absolute l0 t0 r0 b0 h100 w100"
+            className="PDP__overlay flex justify-center items-center absolute
+            l0 t0 r0 b0 h100 w100"
           />
 
           <img
@@ -132,6 +178,8 @@ class PDP extends Component {
   };
 
   render() {
+
+    console.log(this.state.activeColor);
 
     const images = this.state.imageSrcs;
     const productHandle = this.props.product.handle;
@@ -152,44 +200,62 @@ class PDP extends Component {
         this.renderGalleryRow(imageGroup, index, imageMatrix)
       );
     } else {
+
+      let colorsRendered = [];
+
       imageMarkup = this.state.variantObjs.map((variant, index) => {
 
-        // const image = {
-        //   backgroundImage: `url(${variant.src})`,
-        //   backgroundPosition: "center",
-        //   backgroundSize: "cover",
-        //   backgroundRepeat: "no-repeat",
-        //   overflow: "hidden"
-        // };
+        let dataColor;
 
-        return (
-          <div className={
-            cx('PDP__hover-image-container w100 h100',
-              {
-                'none': variant.id !== this.state.activeVariantID
-              },
-              {
-                'block': variant.id === this.state.activeVariantID
-              })
-          } data-color={variant.title.toLowerCase().replace(' ', '-')} key={variant.id}>
+        if (this.state.productWithColorAndSize) {
 
-            <div className="PDP__block relative h100 w100">
+          dataColor = variant.title.toLowerCase()
+          .split(' / ')[0].split(' ').join('-');
 
-              <img
-                src={variant.src}
-                alt={variant.title}
-                className="h100 w100"
-              />
+          if (!colorsRendered.includes(dataColor)) {
+            colorsRendered.push(dataColor);
 
-              {/* <div
-                style={image}
-                className="h100 w100"
-              ></div> */}
+             return (
+               <div
+                 className={cx(
+                   "PDP__hover-image-container w100 h100",
+                   {
+                     none: dataColor !== this.state.activeColor
+                   },
+                   {
+                     block: dataColor === this.state.activeColor
+                   }
+                 )}
+                 data-color={dataColor}
+                 key={variant.id}
+               >
+                 <div className="PDP__block relative h100 w100">
+                   <img
+                     src={variant.src}
+                     alt={variant.title}
+                     className="h100 w100"
+                   />
+                 </div>
+               </div>
+             );
+          }
 
-            </div>
+        } else {
+          dataColor = variant.title.toLowerCase().replace(' / ', '-')
+        }
 
-          </div>
-        )
+        console.log(dataColor)
+        console.log(colorsRendered);
+
+         if (
+           !colorsRendered.includes(dataColor) &&
+           this.state.availableOptions.includes("Color")
+         ) {
+
+        } else {
+          return null;
+        }
+
       })
     }
 
@@ -206,12 +272,14 @@ class PDP extends Component {
               active = true;
             }
 
+            let colorFormat = color.toLowerCase().replace(' ', '-');
+
             return (
               <div className="mx_5 color-white" key={key}>
                <ColorSwatch
                   clickHandler={this.colorSwatchClick}
                   productTitle={this.props.product.title}
-                  color={color}
+                  color={colorFormat}
                   active={active}
                 ></ColorSwatch>
               </div>
@@ -246,8 +314,10 @@ class PDP extends Component {
           {imageMarkup}
         </div>
 
-        <div className="col-12 lg:col-6 flex items-center justify-center flex-col aesthetic-25-transparent-bg-color p0 md:p4">
-          <div className="aesthetic-75-transparent-bg-color p2 flex items-center justify-center flex-col">
+        <div className="col-12 lg:col-6 flex items-center justify-center
+        flex-col aesthetic-25-transparent-bg-color p0 md:p4">
+          <div className="aesthetic-75-transparent-bg-color p2 flex
+          items-center justify-center flex-col">
             <h2
               className="PDP__product-title  true-sketch-rg  aesthetic-font-modifier-outline-purple  aesthetic-effect-text-glitch"
               data-glitch={this.props.product.title}
