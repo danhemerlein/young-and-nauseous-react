@@ -19,13 +19,14 @@ class SizeSelector extends Component {
 
   render() {
 
+    console.log(this.props.sizes)
+
     let sizeListItem;
 
-    sizeListItem = this.props.variants.map((obj, key) => {
-      // console.log(obj.id)
+    sizeListItem = this.props.sizes.map((size, key) => {
       return (
-        <option key={key} value={obj.id}>
-          {obj.title}
+        <option key={key} value={size}>
+          {size}
         </option>
       )
     })

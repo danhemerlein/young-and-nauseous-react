@@ -31,7 +31,7 @@ class PDP extends Component {
     let variants =          [];
     let variantObjs =       [];
     let availableOptions =  [];
-    let avaialableColors =  [];
+    let availableColors =   [];
     let availableSizes =    [];
 
     for (let option of this.props.product.options) {
@@ -50,7 +50,7 @@ class PDP extends Component {
       // if the product has two options, color and size
       if (availableOptions.length > 1 ) {
         // color
-        avaialableColors.push(variant.title.split(" / ")[0]);
+        availableColors.push(variant.title.split(" / ")[0]);
         // size
         availableSizes.push(variant.title.split(" / ")[1]);
 
@@ -60,16 +60,36 @@ class PDP extends Component {
       }
     }
 
-    const uz = [...new Set(avaialableColors)];
+    const uz = [...new Set(availableColors)];
     const ul = [...new Set(availableSizes)];
 
     for (let imageGraphModel of this.props.product.images) {
       imageSrcs.push(imageGraphModel.src)
     }
 
-    let onLoadColor = this.props.product.variants[0].title.split(' / ')[0];
+    console.log(this.props.product.variants);
+    let onLoadColor;
+    let onLoadSize;
 
-    let onLoadSize = this.props.product.variants[0].title.split(' / ')[1];
+    if (availableOptions.includes('Color')) {
+      onLoadColor = this.props.product.variants[0].title.split(' / ')[0];
+
+      this.setState({
+        activeColor: onLoadColor.toLowerCase()
+      });
+    }
+
+    if (availableOptions.includes('Size')) {
+      if (availableOptions.length > 1 ) {
+        onLoadSize = this.props.product.variants[0].title.split(' / ')[1];
+      } else {
+        onLoadSize = this.props.product.variants[0].title.split(' / ')[0];
+      }
+
+      this.setState({
+        activeSize: onLoadSize.toLowerCase()
+      });
+    }
 
     let onLoadVariant;
 
@@ -89,8 +109,6 @@ class PDP extends Component {
       imageSrcs:          imageSrcs,
       variantObjs:        variantObjs,
       activeVariantID:    onLoadVariant,
-      activeColor:        onLoadColor.toLowerCase(),
-      activeSize:         onLoadSize.toLowerCase(),
       availableOptions:   availableOptions,
       availableColors:    uz,
       availableSizes:     ul,
@@ -279,6 +297,7 @@ class PDP extends Component {
 
     let sizeSelectorMarkUp;
 
+    console.log(this.state.availableSizes);
     if (
       this.state.availableOptions.includes('Size')
     ) {
@@ -286,7 +305,7 @@ class PDP extends Component {
         <div className="my1">
           <SizeSelector
             clickHandler={this.sizeSelectorClick}
-            variants={this.state.variantObjs}
+            sizes={this.state.availableSizes}
           ></SizeSelector>
         </div>
       );
