@@ -16,38 +16,103 @@ class CollectionProductCard extends Component {
       variants: [],
       imageSrcs: [],
       variantObjs: [],
+
+      hasColors: false,
+      availableColors: [],
+      activeColor: 'black',
+
+      hasSizes: false,
+      availableSizes: [],
+      activeSize: null,
+
       hasHover: false,
-      activeVariantID: '',
-    }
+      activeVariantID: ""
+    };
   }
 
   componentDidMount() {
-    let k = [];
-    let j = [];
-    let x = [];
+
+    console.log(this.props.product);
+
+    let variants        = [];
+    let imageSrcs       = [];
+    let variantObjs     = [];
+    let availableColors = [];
+    let availableSizes  = [];
+    let activeColor;
+    let hasSizes;
+    let hasColors;
 
     for (let variant of this.props.product.variants) {
-      k.push(variant);
+      variants.push(variant);
       let y = {
         title: variant.title,
         src: variant.image.src,
         id: variant.id
       }
-      x.push(y);
+      variantObjs.push(y);
     }
 
+    for (let option of this.props.product.options) {
+      if (option.name === 'Color') {
+        hasColors = true;
+      }
+      if (option.name === 'Size') {
+        hasSizes = true;
+      }
+    }
+
+    console.log(hasSizes);
+    console.log(hasColors);
+
+    // if the product has both colors and sizes
+    if (hasColors && hasSizes) {
+      for (let variant of this.props.product.variants) {
+        let variantSplit = variant.title.split(' / ');
+        availableColors.push(variantSplit[0]);
+        availableSizes.push(variantSplit[1]);
+      }
+    }
+
+    // if the product only has sizes
+    if (!hasColors && hasSizes) {
+      for (let variant of this.props.product.variants) {
+        let variantSplit = variant.title.split(" / ");
+        availableSizes.push(variantSplit[0]);
+      }
+    }
+
+    // if the product only has colors
+
+    if (hasColors && !hasSizes) {
+      for (let variant of this.props.product.variants) {
+        let variantSplit = variant.title.split(" / ");
+        availableColors.push(variantSplit[0]);
+      }
+    }
+
+    console.log('available Colors',availableColors);
+    console.log('available Sizes', availableSizes);
+
+    const availableColorsWashed = [...new Set(availableColors)];
+    const availableSizesWashed  = [...new Set(availableSizes)];
+
     for(let imageGraphModel of this.props.product.images) {
-      j.push(imageGraphModel.src)
+      imageSrcs.push(imageGraphModel.src)
     }
 
     const onLoadVariant = this.props.product.variants[0].id;
 
     this.setState({
-      variants: k,
-      imageSrcs: j,
-      variantObjs: x,
-      activeVariantID: onLoadVariant
-    })
+      variants: variants,
+      imageSrcs: imageSrcs,
+      variantObjs: variantObjs,
+      activeVariantID: onLoadVariant,
+      availableColors: availableColorsWashed,
+      availableSizes: availableSizesWashed,
+      hasSizes: hasSizes,
+      hasColors: hasColors
+    });
 
     if (this.props.product.images.length === (this.props.product.variants.length * 2)) {
       this.setState({
@@ -60,8 +125,8 @@ class CollectionProductCard extends Component {
   colorSwatchClick = (str) => {
 
     this.setState({
-      activeVariantID: str,
-    })
+      activeColor: str.toLowerCase().replace(" ", "-")
+    });
 
   }
 
@@ -70,7 +135,10 @@ class CollectionProductCard extends Component {
 
     const image2SRC = imageGroup[1];
 
-    const variantColor = this.state.variantObjs[index].title.toLowerCase().replace(' ', '-');
+    const variantColor = this.state.variantObjs[index].title
+      .toLowerCase()
+      .replace(" ", "-");
+
     const variantID = this.state.variantObjs[index].id;
 
       return (
@@ -90,13 +158,15 @@ class CollectionProductCard extends Component {
             <img
               src={image1SRC}
               alt=""
-              className="CollectionProductCard__overlay flex justify-center items-center absolute l0 t0 r0 b0 h100 w100"
+              className="CollectionProductCard__overlay flex justify-center
+              items-center absolute l0 t0 r0 b0 h100 w100"
             />
 
             <img
               src={image2SRC}
               alt=""
-              className="CollectionProductCard__top flex justify-center items-center h100 w100"
+              className="CollectionProductCard__top flex justify-center
+              items-center h100 w100"
             />
 
           </div>
@@ -119,54 +189,56 @@ class CollectionProductCard extends Component {
 
     let imageMarkup;
 
-    console.log(this.state.hasHover);
-
     if (this.state.hasHover) {
       imageMarkup = imageMatrix.map((imageGroup, index) =>
         this.renderGalleryRow(imageGroup, index, imageMatrix)
       );
     } else {
-      imageMarkup = this.state.variantObjs.map((variant, index) => {
-        return (
-          <div className={
-            cx('CollectionProductCard__hover-image-container w100 h100',
-              {
-                'none': variant.id !== this.state.activeVariantID
-              },
-              {
-                'block': variant.id === this.state.activeVariantID
-              })
-          } data-color={variant.title.toLowerCase().replace(' ', '-')} key={variant.id}>
+        if (this.state.hasColors) {
+          imageMarkup = this.state.variantObjs.map((variant, index) => {
+            let variantColor = variant.title.split(' / ')[0].toLowerCase().replace(' ', '-');
 
-            <div className="CollectionProductCard__block relative h100 w100">
+            console.log(variantColor);
 
-              <img
-                src={variant.src}
-                alt=""
-                className="h100 w100"
-              />
+            console.log(this.state.activeColor);
 
-            </div>
-
-          </div>
-        )
-      })
-    }
+            return (
+              <div
+                className={cx(
+                  "w100 h100",
+                  {
+                    none: variantColor !== this.state.activeColor
+                  },
+                  {
+                    block: variantColor === this.state.activeColor
+                  }
+                )}
+                data-color={variantColor}
+                key={variant.id}
+              >
+                <div className="CollectionProductCard__block relative h100 w100">
+                  <img src={variant.src} alt="" className="h100 w100" />
+                </div>
+              </div>
+            );
+          })
+        }
+      }
 
     let colorSwatchMarkup;
 
-    if (this.props.product.variants.length > 1 && this.props.product.options[0].name === 'Color') {
-      colorSwatchMarkup = this.state.variants.map((variant, key) => {
+    if (this.state.hasColors) {
+      colorSwatchMarkup = this.state.availableColors.map((color, key) => {
           let active = false
-          if (variant.id === this.state.activeVariantID) {
+          if (color.toLowerCase().replace(' ', '-')
+          === this.state.activeColor) {
             active = true;
           }
           return (
             <div className="mx_5" key={key}>
               <ColorSwatch
                 clickHandler={this.colorSwatchClick}
-                id={variant.id}
-                color={variant.title}
+                color={color}
                 active={active}
               ></ColorSwatch>
             </div>
@@ -179,13 +251,13 @@ class CollectionProductCard extends Component {
     // this is the markup for the size selector for accessories
     let sizeSelectorMarkup;
 
-    if (this.props.product.variants.length > 1 && this.props.product.options[0].name === 'Size') {
-      sizeSelectorMarkup =
-        <div>
-          <SizeSelector
-            variants={this.state.variantObjs}
-          ></SizeSelector>
-        </div>
+    if (this.state.hasSizes) {
+      sizeSelectorMarkup = null;
+        // <div>
+        //   <SizeSelector
+        //     sizes={this.state.variantObjs}
+        //   ></SizeSelector>
+        // </div>
     } else {
       sizeSelectorMarkup = null;
     }
@@ -221,5 +293,6 @@ class CollectionProductCard extends Component {
     );
   }
 }
+
 
 export default CollectionProductCard;
