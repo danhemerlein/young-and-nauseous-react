@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import keys from './config';
+// import keys from './config';
 
 import Client from 'shopify-buy';
 
 const client = Client.buildClient({
-  domain: 'young-and-nauseous.myshopify.com',
-  storefrontAccessToken: keys.storefrontAccessToken,
+  domain: "young-and-nauseous.myshopify.com",
+  // storefrontAccessToken: keys.storefrontAccessToken,
+  storefrontAccessToken: process.env.REACT_APP_STOREFRONT_ACCESS_TOKEN,
 });
 
 ReactDOM.render(
