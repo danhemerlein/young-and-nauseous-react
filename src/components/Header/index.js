@@ -4,8 +4,8 @@ import cx                       from 'classnames';
 
 import Marquee                  from "../Marquee/";
 import MiniCart                 from "../MiniCart/";
-import ScorePreview             from "../ScorePreview/";
-import ScoreWarning             from "../ScoreWarning/";
+// import ScorePreview             from "../ScorePreview/";
+// import ScoreWarning             from "../ScoreWarning/";
 import DesktopHeaderNav         from "../Navigation/DesktopHeaderNav";
 import MobileHeaderNav          from "../Navigation/MobileHeaderNav";
 import HamburgerMenu            from "../Navigation/HamburgerMenu";
@@ -79,13 +79,13 @@ class Header extends Component {
             "Header__score-preview--active": this.props.isScorePreviewOpen
           })}
         >
-          <ScorePreview
+          {/* <ScorePreview
             handleScorePreviewClose={this.props.handleScorePreviewClose}
             score={this.props.score}
             scoreMax={this.props.scoreMax}
             scoreDifference={this.props.scoreDifference}
             scorePreviewMessage={this.props.scorePreviewMessage}
-          ></ScorePreview>
+          ></ScorePreview> */}
         </div>
 
         <div
